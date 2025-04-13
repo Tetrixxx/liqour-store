@@ -1,31 +1,34 @@
-import { Component } from '@angular/core'
+import { Component } from '@angular/core';
 import { Liqour } from '../../models/liqour.model';
 import { BEVERAGES } from '../product-list/liqour';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+// Angular Material imports from dedicated entry points
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
-import { FormsModule } from '@angular/forms'; // BrowserModule eltávolítva
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     MatToolbarModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
     MatIconModule,
-    MatCardModule,
-    FormsModule
+    MatCardModule
   ],
   templateUrl: './product-list.component.html',
-  styleUrl: './product-list.component.scss'
+  styleUrls: ['./product-list.component.scss']
 })
+
 // In your component class
 export class ProductListComponent {
   beverages = BEVERAGES;
