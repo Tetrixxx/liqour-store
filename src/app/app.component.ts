@@ -7,11 +7,21 @@ import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 import { ProductListComponent } from './pages/product-list/product-list.component';
 import { MenuComponent } from './shared/menu/menu.component';
-import { NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet ,HomeComponent, ProfileComponent, CartComponent, CheckoutComponent, ProductDetailComponent, ProductListComponent, MenuComponent,NgIf,],
+  imports: [
+    //RouterOutlet,
+    HomeComponent,
+    ProfileComponent, 
+    CartComponent, 
+    CheckoutComponent, 
+    ProductDetailComponent, 
+    ProductListComponent, 
+    MenuComponent,
+    CommonModule
+    ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

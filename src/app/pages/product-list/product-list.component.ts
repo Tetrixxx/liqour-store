@@ -1,11 +1,51 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
+import { Liqour } from '../../models/liqour.model';
+import { BEVERAGES } from '../product-list/liqour';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { FormsModule } from '@angular/forms'; // BrowserModule eltávolítva
 
 @Component({
   selector: 'app-product-list',
-  imports: [],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatToolbarModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatIconModule,
+    MatCardModule,
+    FormsModule
+  ],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss'
 })
+// In your component class
 export class ProductListComponent {
+  beverages = BEVERAGES;
+  searchTerm = '';
+  selectedCategory = 'all';
 
+  // Get unique categories from beverages
+  categories: string[] = this.getUniqueCategories();
+
+  private getUniqueCategories(): string[] {
+    const allCategories = this.beverages.map(b => b.category);
+    return ['all', ...new Set(allCategories)]; // 'all' + unique categories
+  }
+
+  get filteredBeverages(): Liqour[] {
+    return this.beverages.filter(beverage => {
+      const matchesSearch = beverage.name.toLowerCase().includes(this.searchTerm.toLowerCase());
+      const matchesCategory = this.selectedCategory === 'all' || 
+                            beverage.category.toLowerCase() === this.selectedCategory.toLowerCase();
+      return matchesSearch && matchesCategory;
+    });
+  }
 }
