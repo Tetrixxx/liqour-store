@@ -97,10 +97,10 @@
   </footer>
 }
 
-<!-- Checkout component with event binding -->
 @else {
   <app-checkout 
     [cartItems]="cartItems" 
     (checkoutComplete)="showCheckout = false"
+    (returnToCart)="showCheckout = false"
   ></app-checkout>
 }

@@ -31,6 +31,7 @@ import { Output, EventEmitter } from '@angular/core';
 })
 export class CheckoutComponent implements OnInit {
   
+  @Output() returnToCart = new EventEmitter<void>();
   @Output() checkoutComplete = new EventEmitter<void>();
   @Input() cartItems: any[] = [];
   checkoutForm!: FormGroup;
@@ -48,6 +49,9 @@ export class CheckoutComponent implements OnInit {
       zip: ['', Validators.required],
       instructions: ['']
     });
+  }
+  goBackToCart() {
+    this.returnToCart.emit();
   }
 
   incrementQty(item: any) {
