@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatStepperModule } from '@angular/material/stepper'; // Added MatStepperModule
 import { Output, EventEmitter } from '@angular/core';
+import { PriceWithTaxPipe } from "../../shared/menu/Pipe";
 
 @Component({
   selector: 'app-checkout',
@@ -24,8 +25,9 @@ import { Output, EventEmitter } from '@angular/core';
     MatDatepickerModule,
     ReactiveFormsModule,
     MatToolbarModule,
-    MatStepperModule
-  ],
+    MatStepperModule,
+    PriceWithTaxPipe
+],
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.scss']
 })

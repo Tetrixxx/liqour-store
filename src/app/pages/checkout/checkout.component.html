@@ -20,8 +20,7 @@
           <mat-card class="cart-item">
             <mat-card-content>
               <h3>{{ item.beverage.name }}</h3>
-              <p class="price">{{ item.beverage.price | currency:'USD' }}</p>
-              <div class="quantity-controls">
+              <p class="price">{{ item.beverage.price | priceWithTax }}</p>              <div class="quantity-controls">
                 <button mat-icon-button (click)="decrementQty(item)">
                   <mat-icon>-</mat-icon>
                 </button>
@@ -35,8 +34,8 @@
         }
         <aside class="order-summary">
           <div class="summary-row">
-            <span>Subtotal ({{ getTotalItems() }} items)</span>   
-            <span>{{ getSubtotal() | currency:'USD' }}</span>
+            <span>Price with taxes({{ getTotalItems() }} items)</span>   
+            <span>{{ getSubtotal() | priceWithTax }}</span>
           </div>
         </aside>
       </section>
