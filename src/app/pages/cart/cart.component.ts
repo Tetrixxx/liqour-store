@@ -29,7 +29,10 @@ export class CartComponent {
   cartItems = CART_ITEMS;
   promoCode: string | null = null;
   showCheckout: boolean = false; // Ezzel vezéreljük, hogy megjelenjen-e a child Checkout
-
+  fontSize: number = 14;
+  getIconSize(): string {
+    return `${this.fontSize + 4}px`;
+  }
   constructor() {}
   
   decrementQty(item: any) {
