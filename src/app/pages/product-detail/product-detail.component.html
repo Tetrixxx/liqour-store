@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Beverage Store</title>
+    <link rel="stylesheet" href="product-detail.component.scss">
+</head>
+<body>
+    <div class="product-container">
+        <a href="product-list.html" class="back-button">&larr; Back to Products</a>
+        
+        <div class="product-gallery">
+            <div class="main-image">
+                <img src="https://via.placeholder.com/600x600?text=Espresso+Shot" alt="Espresso">
+            </div>
+            <div class="thumbnails">
+                <img src="https://via.placeholder.com/100x100?text=Angle+1" alt="Angle 1">
+                <img src="https://via.placeholder.com/100x100?text=Angle+2" alt="Angle 2">
+                <img src="https://via.placeholder.com/100x100?text=Packaging" alt="Packaging">
+            </div>
+        </div>
+
+        <div class="product-info">
+            <h1 class="product-title">Premium Espresso</h1>
+            <div class="price-rating">
+                <span class="price">$9.99</span>
+                <div class="rating">
+                    ★★★★☆ <span class="reviews">(128 reviews)</span>
+                </div>
+            </div>
+
+            <div class="product-description">
+                <p>A rich, full-bodied espresso with notes of dark chocolate and caramel. Perfectly roasted beans sourced from South America.</p>
+            </div>
+
+            <div class="product-specs">
+                <h3>Details</h3>
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <span class="spec-label">Type:</span>
+                        <span class="spec-value">Coffee</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Size:</span>
+                        <span class="spec-value">12 oz</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Origin:</span>
+                        <span class="spec-value">Colombia</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Roast Level:</span>
+                        <span class="spec-value">Dark</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="add-to-cart">
+                <div class="quantity-selector">
+                    <button class="quantity-btn">-</button>
+                    <input type="number" value="1" min="1" class="quantity-input">
+                    <button class="quantity-btn">+</button>
+                </div>
+                <button class="cart-button">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

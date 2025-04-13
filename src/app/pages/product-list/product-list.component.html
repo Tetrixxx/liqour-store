@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beverage Store - Product List</title>
+    <link rel="stylesheet" href="product-list.component.scss">
+</head>
+<body>
+    <div class="header">
+        <h1>Our Beverages</h1>
+        <div class="search-filter">
+            <input type="text" placeholder="Search drinks..." class="search-input">
+            <select class="category-filter">
+                <option value="all">All Categories</option>
+                <option value="coffee">Coffee</option>
+                <option value="tea">Tea</option>
+                <option value="soda">Soda</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="product-grid">
+        <!-- Coffee Products -->
+        <div class="product-card">
+            <img src="https://www.thespruceeats.com/thmb/HJrjMfXdLGHbgMhnM0fMkDx9XPQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/what-is-espresso-765702-hero-03_cropped-ffbc0c7cf45a46ff846843040c8f370c.jpg" alt="Espresso" class="product-image">
+            <h3 class="product-name">Espresso</h3>
+            <p class="product-price">$3.99</p>
+            <button class="buy-button">Add to Cart</button>
+        </div>
+
+        <!-- Tea Products -->
+        <div class="product-card">
+            <img src="https://via.placeholder.com/200x200?text=Green+Tea" alt="Green Tea" class="product-image">
+            <h3 class="product-name">Green Tea</h3>
+            <p class="product-price">$2.50</p>
+            <button class="buy-button">Add to Cart</button>
+        </div>
+
+        <!-- Soda Products -->
+        <div class="product-card">
+            <img src="https://via.placeholder.com/200x200?text=Cola" alt="Cola" class="product-image">
+            <h3 class="product-name">Cola</h3>
+            <p class="product-price">$1.99</p>
+            <button class="buy-button">Add to Cart</button>
+        </div>
+    </div>
+</body>
+</html>

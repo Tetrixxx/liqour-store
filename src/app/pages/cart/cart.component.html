@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - Spirits & More</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="cart-header">
+        <div class="container">
+            <h1>Your Cart</h1>
+            <a href="#" class="continue-shopping">Continue Shopping</a>
+        </div>
+    </header>
+
+    <main class="cart-main">
+        <div class="container">
+            <!-- Cart Items -->
+            <section class="cart-items">
+                <div class="cart-item">
+                    <div class="item-image">
+                        <img src="whiskey.jpg" alt="Premium Whiskey">
+                        <button class="remove-item"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="item-details">
+                        <h3>Premium Whiskey 750ml</h3>
+                        <p class="product-type">Bourbon - 45% ABV</p>
+                        
+                        <div class="quantity-controls">
+                            <button class="qty-btn">-</button>
+                            <span class="quantity">2</span>
+                            <button class="qty-btn">+</button>
+                        </div>
+                        
+                        <div class="price-info">
+                            <span class="price">$49.99</span>
+                            <span class="total">$99.98</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Repeat other cart items -->
+            </section>
+
+            <!-- Order Summary -->
+            <aside class="order-summary">
+                <h2>Order Summary</h2>
+                <div class="summary-row">
+                    <span>Subtotal (3 items)</span>
+                    <span>$149.97</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span>Calculated at checkout</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Estimated Total</span>
+                    <span>$149.97</span>
+                </div>
+
+                <div class="promo-code">
+                    <input type="text" placeholder="Enter promo code">
+                    <button class="apply-btn">Apply</button>
+                </div>
+
+                <button class="checkout-btn">Secure Checkout</button>
+                
+                <div class="age-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>Must be 21+ to purchase alcohol. ID required at delivery.</p>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="cart-footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">Shipping Policy</a>
+                <a href="#">Returns</a>
+                <a href="#">Age Verification</a>
+            </div>
+            <p class="secure-checkout">
+                <i class="fas fa-lock"></i>
+                100% Secure Checkout
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

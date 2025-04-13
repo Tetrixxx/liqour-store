@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - The Bottle Shop</title>
+    <link rel="stylesheet" href="profile.component.scss">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="account-container">
+        <!-- Side Navigation -->
+        <aside class="account-sidebar">
+            <div class="user-summary">
+                <div class="avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <h2>John D.</h2>
+                <p class="email">john.doe&#64;email.com</p>
+                <p class="member-since">Member since 2023</p>
+            </div>
+            
+            <nav class="account-nav">
+                <a href="#" class="active"><i class="fas fa-user"></i> Profile</a>
+                <a href="#"><i class="fas fa-shopping-cart"></i> Orders</a>
+                <a href="#"><i class="fas fa-map-marker-alt"></i> Addresses</a>
+                <a href="#"><i class="fas fa-lock"></i> Security</a>
+                <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="account-content">
+            <div class="content-header">
+                <h1>Account Overview</h1>
+                <button class="edit-btn"><i class="fas fa-edit"></i> Edit Profile</button>
+            </div>
+
+            <!-- Personal Information Section -->
+            <section class="info-section">
+                <h2><i class="fas fa-id-card"></i> Personal Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Full Name</label>
+                        <p>John Doe</p>
+                    </div>
+                    <div class="info-item">
+                        <label>Email</label>
+                        <p>john.doe&#64;email.com <span class="verified">Verified</span></p>
+                    </div>
+                    <div class="info-item">
+                        <label>Phone Number</label>
+                        <p>+1 (555) 123-4567</p>
+                    </div>
+                    <div class="info-item">
+                        <label>Date of Birth</label>
+                        <p>January 1, 1985</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Address Section -->
+            <section class="info-section">
+                <h2><i class="fas fa-map-marker-alt"></i> Primary Address</h2>
+                <div class="address-card">
+                    <p class="name">John Doe</p>
+                    <p>123 Spirits Lane</p>
+                    <p>New York, NY 10001</p>
+                    <p>United States</p>
+                    <p class="phone">Phone: +1 (555) 123-4567</p>
+                </div>
+            </section>
+
+            <!-- Recent Orders -->
+            <section class="info-section">
+                <h2><i class="fas fa-history"></i> Recent Orders</h2>
+                <div class="order-card">
+                    <div class="order-header">
+                        <span class="order-id">#BTL-456789</span>
+                        <span class="order-date">March 15, 2023</span>
+                        <span class="order-status delivered">Delivered</span>
+                    </div>
+                    <div class="order-details">
+                        <div class="products">
+                            3 items • Total: $189.99
+                        </div>
+                        <button class="track-btn"><i class="fas fa-truck"></i> Track Package</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Security Section -->
+            <section class="info-section">
+                <h2><i class="fas fa-shield-alt"></i> Security</h2>
+                <div class="security-grid">
+                    <div class="security-item">
+                        <label>Password</label>
+                        <p>••••••••</p>
+                    </div>
+                    <div class="security-item">
+                        <label>Last Login</label>
+                        <p>March 20, 2023 14:30 (EST)</p>
+                    </div>
+                </div>
+                <div class="security-actions">
+                    <button class="change-pwd-btn"><i class="fas fa-key"></i> Change Password</button>
+                    <button class="delete-account-btn"><i class="fas fa-trash-alt"></i> Delete Account</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Delete Account Modal -->
+    <div class="modal-overlay">
+        <div class="modal">
+            <h3>Delete Account</h3>
+            <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+            <div class="modal-actions">
+                <button class="cancel-btn">Cancel</button>
+                <button class="confirm-delete-btn">Delete Account</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
