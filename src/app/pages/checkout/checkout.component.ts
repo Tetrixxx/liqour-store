@@ -9,6 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatStepperModule } from '@angular/material/stepper'; // Added MatStepperModule
+import { Output, EventEmitter } from '@angular/core';
+
 @Component({
   selector: 'app-checkout',
   standalone: true,
@@ -28,7 +30,8 @@ import { MatStepperModule } from '@angular/material/stepper'; // Added MatSteppe
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements OnInit {
-
+  
+  @Output() checkoutComplete = new EventEmitter<void>();
   @Input() cartItems: any[] = [];
   checkoutForm!: FormGroup;
   activeStep = 0;
@@ -67,14 +70,14 @@ export class CheckoutComponent implements OnInit {
 
   onSubmit() {
     if (this.checkoutForm.valid) {
-      // Itt jöhet a fizetési folyamat további lépése
       console.log('Form submitted:', this.checkoutForm.value);
       this.activeStep++;
+      this.checkoutComplete.emit(); // Emit the output event
     }
   }
 
   getSubtotal() {
   return this.cartItems.reduce((sum: number, item: { beverage: { price: number; }; quantity: number; }) => sum + item.beverage.price * item.quantity, 0);
   }
-  
+
 }

@@ -97,7 +97,10 @@
   </footer>
 }
 
-<!-- Checkout component when showCheckout is true -->
+<!-- Checkout component with event binding -->
 @else {
-  <app-checkout [cartItems]="cartItems"></app-checkout>
+  <app-checkout 
+    [cartItems]="cartItems" 
+    (checkoutComplete)="showCheckout = false"
+  ></app-checkout>
 }

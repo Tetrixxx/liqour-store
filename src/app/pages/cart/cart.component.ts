@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CART_ITEMS, CartItem } from './cat-items';
 import { CheckoutComponent } from "../checkout/checkout.component"; // Győződj meg, hogy az elérési út helyes!
 import { CommonModule } from '@angular/common';
@@ -8,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-cart',
@@ -19,7 +19,8 @@ import { MatCardModule } from '@angular/material/card';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+  
 ],
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
@@ -30,7 +31,7 @@ export class CartComponent {
   showCheckout: boolean = false; // Ezzel vezéreljük, hogy megjelenjen-e a child Checkout
 
   constructor() {}
-
+  
   decrementQty(item: any) {
     if (item.quantity > 1) {
       item.quantity--;
