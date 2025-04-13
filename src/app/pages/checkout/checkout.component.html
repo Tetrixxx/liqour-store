@@ -1,80 +1,90 @@
 <mat-toolbar class="checkout-header">
-    <h1>Spirits & More</h1>
-    <mat-horizontal-stepper [selectedIndex]="activeStep" class="progress-steps">
-      <mat-step label="Cart"></mat-step>
-      <mat-step label="Information"></mat-step>
-      <mat-step label="Payment"></mat-step>
-    </mat-horizontal-stepper>
-  </mat-toolbar>
-  
-  <main class="checkout-main">
-    <div class="container">
-      <!-- Cart Items -->
+  <h1>Spirits & More</h1>
+  <mat-horizontal-stepper [selectedIndex]="activeStep" class="progress-steps">
+    <mat-step label="Cart"></mat-step>
+    <mat-step label="Information"></mat-step>
+    <mat-step label="Payment"></mat-step>
+  </mat-horizontal-stepper>
+</mat-toolbar>
+
+<main class="checkout-main">
+  <div class="container">
+    <!-- Dynamic cart items listing -->
+    @if (cartItems && cartItems.length) {
       <section class="cart-items">
-        <h2>Your Order (3 items)</h2>
-        <mat-card class="cart-item">
-          <mat-card-content>
-            <h3>Premium Whiskey 750ml</h3>
-            <p class="price">$49.99</p>
-            <div class="quantity-controls">
-              <button mat-icon-button (click)="decrementQty()">
-                <mat-icon>remove</mat-icon>
-              </button>
-              <span class="quantity">{{ quantity }}</span>
-              <button mat-icon-button (click)="incrementQty()">
-                <mat-icon>add</mat-icon>
-              </button>
-            </div>
-          </mat-card-content>
-        </mat-card>
+        <h2>Your Order ({{ getTotalItems() }} items)</h2>
+        @for (item of cartItems; track item.beverage.id) {
+          <mat-card class="cart-item">
+            <mat-card-content>
+              <h3>{{ item.beverage.name }}</h3>
+              <p class="price">{{ item.beverage.price | currency:'USD' }}</p>
+              <div class="quantity-controls">
+                <button mat-icon-button (click)="decrementQty(item)">
+                  <mat-icon>-</mat-icon>
+                </button>
+                <span class="quantity">{{ item.quantity }}</span>
+                <button mat-icon-button (click)="incrementQty(item)">
+                  <mat-icon>+</mat-icon>
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        }
+        <aside class="order-summary">
+          <div class="summary-row">
+            <span>Subtotal ({{ getTotalItems() }} items)</span>   
+            <span>{{ getSubtotal() | currency:'USD' }}</span>
+          </div>
+        </aside>
       </section>
-  
-      <!-- Checkout Form -->
-      <form [formGroup]="checkoutForm" class="checkout-form">
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput formControlName="email" required>
-        </mat-form-field>
+    }
+
+    <!-- Checkout Form -->
+    <form [formGroup]="checkoutForm" class="checkout-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" required>
+      </mat-form-field>
         
-        <mat-form-field appearance="outline">
-          <mat-label>Date of Birth</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="birthday" required>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
+      <mat-form-field appearance="outline">
+        <mat-label>Date of Birth</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="birthday" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Shipping Address</mat-label>
+        <input matInput formControlName="address" required>
+      </mat-form-field>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>City</mat-label>
+          <input matInput formControlName="city" required>
         </mat-form-field>
-  
-        <mat-form-field appearance="outline">
-          <mat-label>Shipping Address</mat-label>
-          <input matInput formControlName="address" required>
-        </mat-form-field>
-  
-        <div class="form-row">
-          <mat-form-field appearance="outline" class="half-width">
-            <mat-label>City</mat-label>
-            <input matInput formControlName="city" required>
-          </mat-form-field>
           
-          <mat-form-field appearance="outline" class="half-width">
-            <mat-label>ZIP Code</mat-label>
-            <input matInput formControlName="zip" required>
-          </mat-form-field>
-        </div>
-  
-        <mat-form-field appearance="outline">
-          <mat-label>Delivery Instructions</mat-label>
-          <textarea matInput formControlName="instructions" rows="3"></textarea>
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>ZIP Code</mat-label>
+          <input matInput formControlName="zip" required>
         </mat-form-field>
-  
-        <button mat-flat-button color="primary" class="checkout-btn" 
-                [disabled]="!checkoutForm.valid" (click)="onSubmit()">
-          Continue to Payment
-        </button>
-      </form>
-    </div>
-  </main>
-  
-  <footer class="checkout-footer">
-    <div class="container">
-      <p>© {{ currentYear }} Spirits & More. All rights reserved. Drink Responsibly.</p>
-    </div>
-  </footer>
+      </div>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Delivery Instructions</mat-label>
+        <textarea matInput formControlName="instructions" rows="3"></textarea>
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" class="checkout-btn" 
+              [disabled]="!checkoutForm.valid" (click)="onSubmit()">
+        Continue to Payment
+      </button>
+    </form>
+  </div>
+</main>
+
+<footer class="checkout-footer">
+  <div class="container">
+    <p>© {{ currentYear }} Spirits & More. All rights reserved. Drink Responsibly.</p>
+  </div>
+</footer>

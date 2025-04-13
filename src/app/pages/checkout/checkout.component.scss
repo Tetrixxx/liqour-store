@@ -226,6 +226,19 @@ body {
     opacity: 0.9;
   }
 }
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid $border-color;
+
+  &.total {
+    font-weight: bold;
+    font-size: 1.1rem;
+    border-bottom: none;
+  }
+}
 
 // Responsive Adjustments
 @include breakpoint(medium) {

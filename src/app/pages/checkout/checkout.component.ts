@@ -1,37 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import { Component, Input, NgModule, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatToolbarModule } from '@angular/material/toolbar';
-
-
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatStepperModule } from '@angular/material/stepper'; // Added MatStepperModule
 @Component({
   selector: 'app-checkout',
   standalone: true,
   imports: [
-    MatToolbarModule,
-    MatStepperModule,
+    CommonModule,
+    MatCardModule,
+    MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule,
     MatIconModule,
-    MatCardModule,
     MatDatepickerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatToolbarModule,
+    MatStepperModule
   ],
   templateUrl: './checkout.component.html',
-  styleUrl: './checkout.component.scss'
+  styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements OnInit {
+
+  @Input() cartItems: any[] = [];
   checkoutForm!: FormGroup;
   activeStep = 0;
-  quantity = 1;
   currentYear = new Date().getFullYear();
 
   constructor(private fb: FormBuilder) {}
@@ -47,19 +47,34 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-  incrementQty() {
-    this.quantity++;
+  incrementQty(item: any) {
+    item.quantity++;
   }
 
-  decrementQty() {
-    if (this.quantity > 1) this.quantity--;
+  decrementQty(item: any) {
+    if (item.quantity > 1) {
+      item.quantity--;
+    }
+  }
+
+  getTotalItems() {
+    return this.cartItems.reduce((total, item) => total + item.quantity, 0);
+  }
+
+  trackByBeverageId(index: number, item: any): number {
+    return item.beverage.id;
   }
 
   onSubmit() {
     if (this.checkoutForm.valid) {
-      // Handle form submission
+      // Itt jöhet a fizetési folyamat további lépése
       console.log('Form submitted:', this.checkoutForm.value);
       this.activeStep++;
     }
   }
+
+  getSubtotal() {
+  return this.cartItems.reduce((sum: number, item: { beverage: { price: number; }; quantity: number; }) => sum + item.beverage.price * item.quantity, 0);
+  }
+  
 }

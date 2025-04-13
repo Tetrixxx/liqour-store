@@ -1,90 +1,103 @@
-<!-- Header Section -->
-<header class="cart-header">
-  <div class="container">
-    <h1>Your Cart</h1>
-    <a mat-button color="primary" routerLink="/products" class="continue-shopping">
-      Continue Shopping
-    </a>
-  </div>
-</header>
+<!-- Cart view when showCheckout is false -->
+@if (!showCheckout) {
+  <!-- Header Section -->
+  <header class="cart-header">
+    <div class="container">
+      <h1>Your Cart</h1>
+      <a mat-button color="primary" routerLink="/products" class="continue-shopping">
+        Continue Shopping
+      </a>
+    </div>
+  </header>
 
-<main class="container">
-  <!-- Cart Items Section -->
-  <section class="cart-items">
-    @for (item of cartItems; track item.beverage.id) {
-      <mat-card class="cart-item">
-        <div class="item-image">
-        </div>
-        <div class="item-details">
-          <h3>{{ item.beverage.name }}</h3>
-          <p class="product-type">{{ item.beverage.category }} - {{ item.beverage.alcoholPercentage }}% ABV</p>
-          
-          <div class="quantity-controls">
-            <button mat-icon-button (click)="decrementQty(item)">
-              <mat-icon>remove</mat-icon>
-            </button>
-            <span class="quantity">{{ item.quantity }}</span>
-            <button mat-icon-button (click)="incrementQty(item)">
-              <mat-icon>add</mat-icon>
-            </button>
+  <main class="container">
+    <!-- Cart Items Section -->
+    <section class="cart-items">
+      @for (item of cartItems; track item.beverage.id) {
+        <mat-card class="cart-item">
+          <div class="item-image">
+            <!-- Image placeholder -->
           </div>
-          
-          <div class="price-info">
-            <span class="price">${{ item.beverage.price }}</span>
-            <span class="total">${{ (item.beverage.price * item.quantity) }}</span>
+          <div class="item-details">
+            <h3>{{ item.beverage.name }}</h3>
+            <p class="product-type">
+              {{ item.beverage.category }} - {{ item.beverage.alcoholPercentage }}%
+            </p>
+            
+            <div class="quantity-controls">
+              <button mat-icon-button (click)="decrementQty(item)">
+                <mat-icon>-</mat-icon>
+              </button>
+              <span class="quantity">{{ item.quantity }}</span>
+              <button mat-icon-button (click)="incrementQty(item)">
+                <mat-icon>+</mat-icon>
+              </button>
+            </div>
+
+            <div class="price-info">
+              <span class="price">{{ item.beverage.price | currency:'USD' }}</span>
+              <span class="total">{{ (item.beverage.price * item.quantity) | currency:'USD' }}</span>
+            </div>
           </div>
-        </div>
-      </mat-card>
-    }
-  </section>
+        </mat-card>
+      }
+    </section>
 
-  <!-- Order Summary -->
-  <aside class="order-summary">
-    <h2>Order Summary</h2>
-    
-    <div class="summary-row">
-      <span>Subtotal ({{ totalItems() }} items)</span>   
-    </div>
-    
-    <div class="summary-row">
-      <span>Shipping</span>
-      <span>Calculated at checkout</span>
-    </div>
-    
-    <div class="summary-row total">
-      <span>Estimated Total</span>
-      <span></span>
-    </div>
+    <!-- Order Summary -->
+    <aside class="order-summary">
+      <h2>Order Summary</h2>
+      
+      <div class="summary-row">
+        <span>Subtotal ({{ totalItems() }} items)</span>   
+        <span>{{ getSubtotal() | currency:'USD' }}</span>
+      </div>
+      
+      <div class="summary-row">
+        <span>Shipping</span>
+        <span>Calculated at checkout</span>
+      </div>
+      
+      <div class="summary-row total">
+        <span>Estimated Total</span>
+        <span>{{ getSubtotal() | currency:'USD' }}</span>
+      </div>
 
-    <div class="promo-code">
-      <mat-form-field appearance="outline">
-        <input matInput placeholder="Enter promo code">
-      </mat-form-field>
-      <button mat-raised-button color="accent">Apply</button>
-    </div>
+      <div class="promo-code">
+        <mat-form-field appearance="outline">
+          <input matInput [(ngModel)]="promoCode" placeholder="Enter promo code" name="promoCode">
+        </mat-form-field>
+        <button mat-raised-button color="accent" (click)="applyPromoCode()">
+          Apply
+        </button>
+      </div>
 
-    <button mat-raised-button color="primary" class="checkout-btn">
-      Secure Checkout
-    </button>
+      <button mat-raised-button color="primary" class="checkout-btn" (click)="proceedToCheckout()">
+        Secure Checkout
+      </button>
 
-    <div class="age-warning">
-      <mat-icon>warning</mat-icon>
-      <p>Must be 21+ to purchase alcohol. ID required at delivery.</p>
-    </div>
-  </aside>
-</main>
+      <div class="age-warning">
+        <mat-icon>!!!</mat-icon>
+        <p>Must be 21+ to purchase alcohol. ID required at delivery.</p>
+      </div>
+    </aside>
+  </main>
 
-<!-- Footer Section -->
-<footer class="cart-footer">
-  <div class="container">
-    <div class="footer-links">
-      <a mat-button routerLink="/shipping">Shipping Policy</a>
-      <a mat-button routerLink="/returns">Returns</a>
-      <a mat-button routerLink="/age-verification">Age Verification</a>
+  <!-- Footer Section -->
+  <footer class="cart-footer">
+    <div class="container">
+      <div class="footer-links">
+        <a mat-button routerLink="/shipping">Shipping Policy</a>
+        <a mat-button routerLink="/returns">Returns</a>
+        <a mat-button routerLink="/age-verification">Age Verification</a>
+      </div>
+      <p class="secure-checkout">
+        100% Secure Checkout
+      </p>
     </div>
-    <p class="secure-checkout">
-      <mat-icon>lock</mat-icon>
-      100% Secure Checkout
-    </p>
-  </div>
-</footer>
+  </footer>
+}
+
+<!-- Checkout component when showCheckout is true -->
+@else {
+  <app-checkout [cartItems]="cartItems"></app-checkout>
+}
