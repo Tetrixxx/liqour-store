@@ -7,7 +7,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
-import { Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-cart',
@@ -19,8 +18,7 @@ import { Input, Output, EventEmitter } from '@angular/core';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    MatCardModule,
-  
+    MatCardModule
 ],
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
@@ -73,4 +71,8 @@ export class CartComponent {
   trackByBeverageId(index: number, item: any): number {
     return item.beverage.id;
   }
+    goBackToCart() {
+    this.showCheckout = false;
+  }
+
 }

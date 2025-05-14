@@ -1,115 +1,111 @@
-<!-- Cart view when showCheckout is false -->
-@if (!showCheckout) {
-  <div class="font-size-control" [style.fontSize.px]="fontSize">
-    <!-- Header Section -->
-    <header class="cart-header">
-      <div class="container">
-        <h1>Your Cart</h1>
-        <a mat-button color="primary" routerLink="/products" class="continue-shopping">
-          Continue Shopping
-        </a>
-      </div>
-    </header>
-  
-    <!-- Font Size Controls -->
-    <div class="size-controls">
-      <p>Text size:</p>
-      <input type="range" [(ngModel)]="fontSize" min="12" max="20" step="1">
-      <span [ngStyle]="{'font-size.px': fontSize}">({{fontSize}}px)</span>
+<!-- src/app/cart/cart.component.html -->
+
+<!-- CART VIEW -->
+<div *ngIf="!showCheckout" class="font-size-control" [style.fontSize.px]="fontSize">
+  <!-- Header Section -->
+  <header class="cart-header">
+    <div class="container">
+      <h1>Your Cart</h1>
+      <a mat-button color="primary" routerLink="/products" class="continue-shopping">
+        Continue Shopping
+      </a>
     </div>
-  
-    <main class="container">
-      <!-- Cart Items Section -->
-      <section class="cart-items">
-        @for (item of cartItems; track item.beverage.id) {
-          <mat-card class="cart-item">
-            <div class="item-image">
-              <!-- Image placeholder -->
-            </div>
-            <div class="item-details">
-              <h3>{{ item.beverage.name }}</h3>
-              <p class="product-type">
-                {{ item.beverage.category }} - {{ item.beverage.alcoholPercentage }}%
-              </p>
-              
-              <div class="quantity-controls">
-                <button mat-icon-button (click)="decrementQty(item)">
-                  <mat-icon>-</mat-icon>
-                </button>
-                <span class="quantity">{{ item.quantity }}</span>
-                <button mat-icon-button (click)="incrementQty(item)">
-                  <mat-icon>+</mat-icon>
-                </button>
-              </div>
-  
-              <div class="price-info">
-                <span class="price">{{ item.beverage.price | currency:'USD' }}</span>
-                <span class="total">{{ (item.beverage.price * item.quantity) | currency:'USD' }}</span>
-              </div>
-            </div>
-          </mat-card>
-        }
-      </section>
-  
-      <!-- Order Summary -->
-      <aside class="order-summary">
-        <h2>Order Summary</h2>
-        
-        <div class="summary-row">
-          <span>Subtotal ({{ totalItems() }} items)</span>   
-          <span>{{ getSubtotal() | currency:'USD' }}</span>
-        </div>
-        
-        <div class="summary-row">
-          <span>Shipping</span>
-          <span>Calculated at checkout</span>
-        </div>
-        
-        <div class="summary-row total">
-          <span>Estimated Total</span>
-          <span>{{ getSubtotal() | currency:'USD' }}</span>
-        </div>
-  
-        <div class="promo-code">
-          <mat-form-field appearance="outline">
-            <input matInput [(ngModel)]="promoCode" placeholder="Enter promo code" name="promoCode">
-          </mat-form-field>
-          <button mat-raised-button color="accent" (click)="applyPromoCode()">
-            Apply
-          </button>
-        </div>
-  
-        <button mat-raised-button color="primary" class="checkout-btn" (click)="proceedToCheckout()">
-          Secure Checkout
-        </button>
-  
-        <div class="age-warning">
-          <mat-icon>!!!</mat-icon>
-          <p>Must be 21+ to purchase alcohol. ID required at delivery.</p>
-        </div>
-      </aside>
-    </main>
-  
-    <!-- Footer Section -->
-    <footer class="cart-footer">
-      <div class="container">
-        <div class="footer-links">
-          <a mat-button routerLink="/shipping">Shipping Policy</a>
-          <a mat-button routerLink="/returns">Returns</a>
-          <a mat-button routerLink="/age-verification">Age Verification</a>
-        </div>
-        <p class="secure-checkout">
-          100% Secure Checkout
-        </p>
-      </div>
-    </footer>
+  </header>
+
+  <!-- Font Size Controls -->
+  <div class="size-controls">
+    <p>Text size:</p>
+    <input type="range" [(ngModel)]="fontSize" min="12" max="20" step="1">
+    <span [ngStyle]="{'font-size.px': fontSize}">({{ fontSize }}px)</span>
   </div>
-  }
-  
-  @else {
-    <app-checkout 
-      [cartItems]="cartItems" 
-      (checkoutComplete)="showCheckout = false"
-      (returnToCart)="showCheckout = false"
-    ></app-checkout>
-  }
+
+  <main class="container">
+    <!-- Cart Items Section -->
+    <section class="cart-items">
+      <mat-card *ngFor="let item of cartItems" class="cart-item">
+        <div class="item-image">
+          <!-- <img [src]="item.beverage.imageUrl" alt="{{ item.beverage.name }}"> -->
+        </div>
+        <div class="item-details">
+          <h3>{{ item.beverage.name }}</h3>
+          <p class="product-type">
+            {{ item.beverage.category }} – {{ item.beverage.alcoholPercentage }}%
+          </p>
+
+          <div class="quantity-controls">
+            <button mat-icon-button (click)="decrementQty(item)">
+              <mat-icon>-</mat-icon>
+            </button>
+            <span class="quantity">{{ item.quantity }}</span>
+            <button mat-icon-button (click)="incrementQty(item)">
+              <mat-icon>+</mat-icon>
+            </button>
+          </div>
+
+          <div class="price-info">
+            <span class="price">{{ item.beverage.price | currency:'USD' }}</span>
+            <span class="total">{{ (item.beverage.price * item.quantity) | currency:'USD' }}</span>
+          </div>
+        </div>
+      </mat-card>
+    </section>
+
+    <!-- Order Summary -->
+    <aside class="order-summary">
+      <h2>Order Summary</h2>
+
+      <div class="summary-row">
+        <span>Subtotal ({{ totalItems() }} items)</span>
+        <span>{{ getSubtotal() | currency:'USD' }}</span>
+      </div>
+
+      <div class="summary-row">
+        <span>Shipping</span>
+        <span>Calculated at checkout</span>
+      </div>
+
+      <div class="summary-row total">
+        <span>Estimated Total</span>
+        <span>{{ getSubtotal() | currency:'USD' }}</span>
+      </div>
+
+      <div class="promo-code">
+        <mat-form-field appearance="outline">
+          <input matInput [(ngModel)]="promoCode" placeholder="Enter promo code" name="promoCode">
+        </mat-form-field>
+        <button mat-raised-button color="accent" (click)="applyPromoCode()">
+          Apply
+        </button>
+      </div>
+
+      <button mat-raised-button color="primary" class="checkout-btn" (click)="proceedToCheckout()">
+        Secure Checkout
+      </button>
+
+      <div class="age-warning">
+        <mat-icon>warning</mat-icon>
+        <p>Must be 21+ to purchase alcohol. ID required at delivery.</p>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Footer Section -->
+  <footer class="cart-footer">
+    <div class="container">
+      <div class="footer-links">
+        <a mat-button routerLink="/shipping">Shipping Policy</a>
+        <a mat-button routerLink="/returns">Returns</a>
+        <a mat-button routerLink="/age-verification">Age Verification</a>
+      </div>
+      <p class="secure-checkout">
+        100% Secure Checkout
+      </p>
+    </div>
+  </footer>
+</div>
+
+<app-checkout *ngIf="showCheckout"
+  [cartItems]="cartItems"
+  (checkoutComplete)="showCheckout = false"
+  (returnToCart)="showCheckout = false">
+</app-checkout>

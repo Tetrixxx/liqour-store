@@ -1,8 +1,13 @@
 import { AfterViewInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { RouterLink, RouterLinkActive, RouterLinkWithHref, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
-  imports: [],
+  imports: [
+    RouterLinkWithHref, // <a routerLink="...">
+    RouterLink, // [routerLink] binding
+    RouterLinkActive // routerLinkActive
+],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
 })
@@ -27,5 +32,6 @@ export class MenuComponent implements OnInit, AfterViewInit{
   menuSwitch(pageValue: string) {
     this.selectedPage.emit(pageValue);
   }
+  
 
 }

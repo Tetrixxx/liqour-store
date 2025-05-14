@@ -3,11 +3,10 @@
       <mat-icon>&larr;</mat-icon>
     </button>
   <h1>Spirits & More</h1>
-  <mat-horizontal-stepper [selectedIndex]="activeStep" class="progress-steps">
-    <mat-step label="Cart"></mat-step>
-    <mat-step label="Information"></mat-step>
-    <mat-step label="Payment"></mat-step>
-  </mat-horizontal-stepper>
+<mat-horizontal-stepper [selectedIndex]="activeStep">
+  <mat-step label="Information"></mat-step> <!-- Start at step 0 -->
+  <mat-step label="Payment"></mat-step>
+</mat-horizontal-stepper>
 </mat-toolbar>
 
 <main class="checkout-main">

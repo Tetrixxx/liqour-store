@@ -1,0 +1,46 @@
+/* Base (mobile-first) */
+nav {
+  background-color: rgb(25, 25, 27);
+  padding: 0.5rem;         /* some vertical padding */
+}
+
+nav ul {
+  display: flex;
+  flex-direction: column;  /* stack links vertically on mobile */
+  list-style: none;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  gap: 0.75rem;            /* smaller gap on mobile */
+  align-items: flex-start; /* left‑align links */
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.125rem;     /* 18px */
+  line-height: 1.4;
+  padding: 0.25rem 0;      /* tappable area */
+}
+
+/* Tablet and up */
+@media (min-width: 600px) {
+  nav ul {
+    flex-direction: row;   /* horizontal layout */
+    align-items: center;
+    gap: 2rem;             /* larger gap between items */
+    height: 3rem;          /* fixed nav height */
+  }
+
+  nav a {
+    font-size: 1.25rem;    /* 20px */
+    padding: 0;            /* reset if desired */
+  }
+}
+
+/* Desktop and up */
+@media (min-width: 1024px) {
+  nav ul {
+    gap: 4rem;             /* even more space on wide screens */
+  }
+}

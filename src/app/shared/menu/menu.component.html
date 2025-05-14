@@ -1,8 +1,8 @@
-<!--<ng-content></ng-content>-->
-<select #pageValue (change)="menuSwitch(pageValue.value)">
-    <option value="home">Home</option>
-    <option value="product-list">Pruduct list</option>
-    <option value="cart">Cart</option>
-    <option value="profile">Profile</option>
-    <option value="product-detail">Product detail</option>
-</select>
+<nav>
+  <ul>
+    <li><a routerLink="/" routerLinkActive="active">Home</a></li>
+    <li><a routerLink="/products" routerLinkActive="active">Products</a></li>
+    <li><a routerLink="/cart" routerLinkActive="active">Cart</a></li>
+    <li><a routerLink="/profile" routerLinkActive="active">Profile</a></li>
+  </ul>
+</nav>
