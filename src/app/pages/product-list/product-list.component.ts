@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Liqour } from '../../models/liqour.model';
+import { Liqour } from '../../shared/models/liqour.model';
 import { BEVERAGES } from '../product-list/liqour';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';

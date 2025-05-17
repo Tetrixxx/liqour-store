@@ -3,7 +3,15 @@
     <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
     <li><a routerLink="/products" routerLinkActive="active">Products</a></li>
     <li><a routerLink="/cart" routerLinkActive="active">Cart</a></li>
-    <li><a routerLink="/profile" routerLinkActive="active">Profile</a></li>
-    <li><a routerLink="/login" routerLinkActive="active">Login</a></li>
+    
+    <!-- Csak bejelentkezett felhasználóknak -->
+    <li *ngIf="auth.currentUser as user">
+      <a routerLink="/profile" routerLinkActive="active">Profile</a>
+    </li>
+
+    <!-- Csak nem bejelentkezett felhasználóknak -->
+    <li *ngIf="!auth.currentUser">
+      <a routerLink="/login" routerLinkActive="active">Login</a>
+    </li>
   </ul>
 </nav>

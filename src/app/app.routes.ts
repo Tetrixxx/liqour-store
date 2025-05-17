@@ -9,6 +9,7 @@ import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
+import { authGuard } from '../app/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,7 +20,7 @@ export const routes: Routes = [
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent /*, canActivate: [AuthGuard] */ },
 
-  { path: 'profile', component: ProfileComponent /*, canActivate: [AuthGuard] */ },
+  { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
 
   // Új route-ok hozzáadva
   { path: 'login', component: LoginComponent },

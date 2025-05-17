@@ -1,5 +1,5 @@
 
-import { Liqour } from '../../models/liqour.model';
+import { Liqour } from '../../shared/models/liqour.model';
 
 export const BEVERAGES: Liqour[] = [
   {
