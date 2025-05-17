@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatStepperModule } from '@angular/material/stepper'; // Added MatStepperModule
 import { Output, EventEmitter } from '@angular/core';
-import { PriceWithTaxPipe } from "../../shared/menu/Pipe";
+import { PriceWithTaxPipe } from "../../shared/Pipe";
 import { MatNativeDateModule } from '@angular/material/core'; // Add this line
 
 @Component({

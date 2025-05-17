@@ -1,0 +1,66 @@
+<div class="login-container">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Bejelentkezés</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <!-- Email -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input 
+            matInput 
+            type="email" 
+            formControlName="email"
+            placeholder="pelda@email.com"
+          >
+          <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+            Email kötelező
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+            Érvényes emailt adj meg
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Jelszó -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Jelszó</mat-label>
+          <input 
+            matInput 
+            type="password" 
+            formControlName="password"
+            placeholder="••••••••"
+          >
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+            Jelszó kötelező
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Hibaüzenet -->
+        <div *ngIf="errorMessage" class="error-message">
+          <mat-icon>!!!</mat-icon>
+          {{ errorMessage }}
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button 
+          mat-raised-button 
+          color="primary" 
+          type="submit" 
+          [disabled]="loginForm.invalid || isLoading"
+          class="full-width"
+        >
+          <span *ngIf="!isLoading">Bejelentkezés</span>
+          <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
+        </button>
+
+        <div class="signup-link">
+          Még nincs fiókod? 
+          <a mat-button color="primary" routerLink="/signup">Regisztráció</a>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>

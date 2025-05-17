@@ -7,9 +7,8 @@ import { ProductDetailComponent } from './pages/product-detail/product-detail.co
 import { CartComponent } from './pages/cart/cart.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { ProfileComponent } from './pages/profile/profile.component';
-
-// (Opció: AuthGuard import, ha később védeni akarod a profile vagy checkout oldalt)
-// import { AuthGuard } from './guards/auth.guard';
+import { LoginComponent } from './pages/login/login.component';
+import { SignupComponent } from './pages/signup/signup.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,7 +21,11 @@ export const routes: Routes = [
 
   { path: 'profile', component: ProfileComponent /*, canActivate: [AuthGuard] */ },
 
-  // Catch-all a nem létező utakhoz
+  // Új route-ok hozzáadva
+  { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent },
+
+  // Catch-all a nem létező utakhoz (mindig legyen utoljára!)
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
