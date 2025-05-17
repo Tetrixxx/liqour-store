@@ -3,7 +3,6 @@
     <mat-card>
       <mat-card-header>
         <mat-card-title>
-          <mat-icon>person_add</mat-icon>
           Regisztráció
         </mat-card-title>
       </mat-card-header>
@@ -44,7 +43,7 @@
             type="button"
             aria-label="Jelszó láthatósága"
           >
-            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            <mat-icon>{{ hidePassword ? 'O' : 'I' }}</mat-icon>
           </button>
           <mat-error *ngIf="signupForm.get('password')?.hasError('required')">
             Jelszó kötelező

@@ -1,10 +1,14 @@
-import { Component } from '@angular/core';
-import { Liqour } from '../../shared/models/liqour.model';
-import { BEVERAGES } from '../product-list/liqour';
+// product-list.component.ts
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Liqour } from '../../shared/models/liqour.model';
+import { LiqourService } from '../../shared/services/liqour.service';
+import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { Inject } from '@angular/core';
 
-// Angular Material imports from dedicated entry points
+// Angular Material imports
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -28,27 +32,59 @@ import { MatCardModule } from '@angular/material/card';
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss']
 })
-
-// In your component class
-export class ProductListComponent {
-  beverages = BEVERAGES;
+export class ProductListComponent implements OnInit {
+  // Definite assignment assertion operátorok hozzáadva
+  beverages$!: Observable<Liqour[]>;
+  categories$!: Observable<string[]>;
+  filteredBeverages$!: Observable<Liqour[]>;
+  
+  // Filter controls
   searchTerm = '';
   selectedCategory = 'all';
+  
+  // Subjects for filtering
+  private searchTerm$ = new BehaviorSubject<string>('');
+  private category$ = new BehaviorSubject<string>('all');
+  constructor(@Inject(LiqourService) private liqourService: LiqourService) {}
 
-  // Get unique categories from beverages
-  categories: string[] = this.getUniqueCategories();
-
-  private getUniqueCategories(): string[] {
-    const allCategories = this.beverages.map(b => b.category);
-    return ['all', ...new Set(allCategories)]; // 'all' + unique categories
+  ngOnInit(): void {
+    this.initData();
+    this.setupFiltering();
   }
 
-  get filteredBeverages(): Liqour[] {
-    return this.beverages.filter(beverage => {
-      const matchesSearch = beverage.name.toLowerCase().includes(this.searchTerm.toLowerCase());
-      const matchesCategory = this.selectedCategory === 'all' || 
-                            beverage.category.toLowerCase() === this.selectedCategory.toLowerCase();
-      return matchesSearch && matchesCategory;
-    });
+  private initData(): void {
+    this.beverages$ = this.liqourService.getLiqours();
+    this.categories$ = this.liqourService.getCategories();
+  }
+
+  private setupFiltering(): void {
+    this.filteredBeverages$ = combineLatest([
+      this.beverages$,
+      this.searchTerm$.pipe(startWith('')),
+      this.category$.pipe(startWith('all'))
+    ]).pipe(
+      map(([beverages, searchTerm, category]) => 
+        beverages.filter(b => 
+          this.filterByCategory(b, category) &&
+          this.filterBySearchTerm(b, searchTerm)
+        )
+      )
+    );
+  }
+
+  private filterByCategory(beverage: Liqour, category: string): boolean {
+    return category === 'all' || beverage.category === category;
+  }
+
+  private filterBySearchTerm(beverage: Liqour, searchTerm: string): boolean {
+    return beverage.name.toLowerCase().includes(searchTerm.toLowerCase());
+  }
+
+  updateSearch(): void {
+    this.searchTerm$.next(this.searchTerm);
+  }
+
+  updateCategory(): void {
+    this.category$.next(this.selectedCategory);
   }
 }

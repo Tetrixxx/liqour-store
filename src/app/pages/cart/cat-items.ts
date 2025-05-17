@@ -15,7 +15,6 @@ export const CART_ITEMS: CartItem[] = [
       alcoholPercentage: 40,
       volume: 700,
       countryOfOrigin: 'USA',
-      ageRestricted: true
     },
     quantity: 1
   },
@@ -28,7 +27,6 @@ export const CART_ITEMS: CartItem[] = [
       alcoholPercentage: 40,
       volume: 1000,
       countryOfOrigin: 'Sweden',
-      ageRestricted: true
     },
     quantity: 2
   }

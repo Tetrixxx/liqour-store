@@ -1,0 +1,20 @@
+// styles.scss
+.cdk-overlay-container {
+  .mat-mdc-select-panel {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    
+    .mat-mdc-option {
+      padding: 12px 16px;
+      
+      &.mdc-list-item--selected {
+        background: rgba(0, 0, 0, 0.04);
+      }
+      
+      &:hover {
+        background: rgba(0, 0, 0, 0.04);
+      }
+    }
+  }
+}

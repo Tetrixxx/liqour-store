@@ -9,7 +9,7 @@ import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
-import { authGuard } from '../app/auth.guard';
+import { authGuard } from './shared/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,7 +18,7 @@ export const routes: Routes = [
   { path: 'products/:id', component: ProductDetailComponent },
 
   { path: 'cart', component: CartComponent },
-  { path: 'checkout', component: CheckoutComponent /*, canActivate: [AuthGuard] */ },
+  { path: 'checkout', component: CheckoutComponent, canActivate: [authGuard] },
 
   { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
 

@@ -1,6 +1,8 @@
 export interface User {
-    id: string;
-    email: string;
-    password: string;
-    birthDate?: Date;  // Születési dátum életkor ellenőrzéshez
-  }
+  id?: string; // Firebase Auth UID-vel lesz feltöltve
+  email: string;
+  displayName?: string; // Firebase Auth-ból
+  address?: string;
+  phoneNumber?: string;
+  orders?: string[]; // Order ID-k referenciája
+}

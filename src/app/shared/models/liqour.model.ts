@@ -1,10 +1,12 @@
+import { Timestamp } from '@angular/fire/firestore';
+
 export interface Liqour {
-    id: string;
-    name: string;
-    price: number;
-    category: 'Whiskey' | 'Vodka' | 'Rum' | 'Gin' | 'Tequila'| 'Other'; // Alkoholtípusok
-    alcoholPercentage: number;  // Százalékban
-    volume: number;  // Milliliterben
-    countryOfOrigin: string;
-    ageRestricted: boolean;  // +18 év ellenőrzés
-  }
+  id?: string; // Firestore automatikus ID-ja (opcionális létrehozáskor)
+  name: string;
+  price: number;
+  category: 'Whiskey' | 'Vodka' | 'Rum' | 'Gin' | 'Tequila'| 'Pálinka'| 'Other';
+  alcoholPercentage: number;
+  volume: number;
+  countryOfOrigin: string;
+  createdAt?: Timestamp; // Firestore timestamp
+}

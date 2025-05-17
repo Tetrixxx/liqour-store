@@ -1,47 +1,90 @@
-/* Base (mobile-first) */
+/* Mobile-first alapok */
 nav {
   background-color: rgb(25, 25, 27);
-  padding: 0.5rem;         /* some vertical padding */
+  padding: 0.5rem 1rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  height: 50px; // Fix magasság az egységes megjelenésért
+
+  ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 1.5rem;
+    min-width: max-content;
+    height: 100%; // Teljes magasság a nav-on belül
+
+    li {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center; // Vertikális középre igazítás
+
+      a {
+        text-decoration: none;
+        color: white;
+        font-size: 1rem;
+        font-weight: 500;
+        padding: 0.5rem 0;
+        white-space: nowrap;
+        position: relative;
+        transition: color 0.2s ease;
+
+        &.active::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background: white;
+        }
+
+        &:hover {
+          color: #ccc;
+        }
+      }
+    }
+  }
+
+  // Scrollbar design
+  &::-webkit-scrollbar {
+    height: 3px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+  }
 }
 
-nav ul {
-  display: flex;
-  flex-direction: column;  /* stack links vertically on mobile */
-  list-style: none;
-  font-weight: bold;
-  margin: 0;;
-  padding: 0;
-  gap: 0.75rem;            /* smaller gap on mobile */
-  align-items: flex-start; /* left‑align links */
-  justify-content: center; /* center vertically */
-}
-
-nav a {
-  text-decoration: none;
-  color: white;
-  font-size: 1.125rem;     /* 18px */
-  line-height: 1.4;
-  padding: 0.25rem 0;      /* tappable area */
-}
-
-/* Tablet and up */
+/* Tablet és nagyobb (≥600px) */
 @media (min-width: 600px) {
-  nav ul {
-    flex-direction: row;   /* horizontal layout */
-    align-items: center;
-    gap: 2rem;             /* larger gap between items */
-    height: 3rem;          /* fixed nav height */
-  }
+  nav {
+    padding: 0.5rem 2rem;
+    
+    ul {
+      gap: 2.5rem;
 
-  nav a {
-    font-size: 1.25rem;    /* 20px */
-    padding: 0;            /* reset if desired */
+      li a {
+        font-size: 1.1rem;
+      }
+    }
   }
 }
 
-/* Desktop and up */
+/* Desktop (≥1024px) */
 @media (min-width: 1024px) {
-  nav ul {
-    gap: 4rem;             /* even more space on wide screens */
+  nav {
+    ul {
+      gap: 4rem;
+      justify-content: center;
+    }
   }
 }

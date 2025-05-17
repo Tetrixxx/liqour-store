@@ -7,6 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { Auth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -31,7 +33,10 @@ export class CartComponent {
   getIconSize(): string {
     return `${this.fontSize + 4}px`;
   }
-  constructor() {}
+    constructor(
+    private auth: Auth,
+    private router: Router
+  ) {}
   
   decrementQty(item: any) {
     if (item.quantity > 1) {
@@ -48,14 +53,18 @@ export class CartComponent {
     console.log('Promo code applied:', this.promoCode);
   }
 
-  secureCheckout() {
-    // Korábbi secureCheckout logika, ha szükséges
-    console.log('Proceeding to secure checkout');
-  }
+  async proceedToCheckout() {
+    const user = this.auth.currentUser;
+    
+    if(user) {
+      this.router.navigate(['/checkout']);
+      this.showCheckout = true;
+    } else {
+      this.router.navigate(['/login'], { 
+        queryParams: { returnUrl: '/checkout' } 
+      });
+    }
 
-  proceedToCheckout() {
-    // Ez váltja be a Checkout komponens megjelenítését
-    this.showCheckout = true;
   }
 
   totalItems() {

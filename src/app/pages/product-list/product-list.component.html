@@ -1,46 +1,55 @@
+<!-- product-list.component.html -->
 <section class="product-container">
-    <div class="header">
-      <mat-toolbar color="primary">
-        <span>Our Beverages</span>
-      </mat-toolbar>
-  
-      <div class="filter-section">
-        <mat-form-field appearance="outline">
-          <mat-label>Search</mat-label>
-          <input matInput [(ngModel)]="searchTerm" placeholder="Search drinks...">
-        </mat-form-field>
-  
-        <mat-form-field appearance="outline">
-          <mat-label>Category</mat-label>
-          <mat-select [(value)]="selectedCategory">
-            @for (category of categories; track category) {
-              <mat-option [value]="category">
-                {{ category | titlecase }}
-              </mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-      </div>
+  <div class="header">
+    <mat-toolbar color="primary">
+      <span>Our Beverages</span>
+    </mat-toolbar>
+
+    <div class="filter-section">
+      <mat-form-field appearance="outline">
+        <mat-label>Search</mat-label>
+        <input 
+          matInput 
+          [(ngModel)]="searchTerm" 
+          (input)="updateSearch()"
+          placeholder="Search drinks..."
+        >
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Category</mat-label>
+        <mat-select 
+          [(ngModel)]="selectedCategory" 
+          (selectionChange)="updateCategory()"
+        >
+          @for (category of categories$ | async; track category) {
+            <mat-option [value]="category">
+              {{ category | titlecase }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
     </div>
-  
-    <div class="product-grid">
-      @for (beverage of filteredBeverages; track $index) {
-        <mat-card class="product-card">
-          <mat-card-content>
-            <h3>{{ beverage.name }}</h3>
-            <div class="product-details">
-              <p class="price">{{ beverage.price | currency }}</p>
-              <p class="volume">{{ beverage.volume }}ml</p>
-            </div>
-            <p class="origin">{{ beverage.countryOfOrigin }}</p>
-            <p class="alcohol">{{ beverage.alcoholPercentage }}% ABV</p>
-          </mat-card-content>
-          <mat-card-actions>
-            <button mat-raised-button color="accent" class="buy-button">
-              Add to Cart
-            </button>
-          </mat-card-actions>
-        </mat-card>
-      }
-    </div>
-  </section>
+  </div>
+
+  <div class="product-grid">
+    @for (beverage of filteredBeverages$ | async; track beverage.id) {
+      <mat-card class="product-card">
+        <mat-card-content>
+          <h3>{{ beverage.name }}</h3>
+          <div class="product-details">
+            <p class="price">{{ beverage.price | currency:'USD' }}</p>
+            <p class="volume">{{ beverage.volume }}ml</p>
+          </div>
+          <p class="origin">Origin: {{ beverage.countryOfOrigin }}</p>
+          <p class="alcohol">{{ beverage.alcoholPercentage }}% ABV</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="accent" class="buy-button">
+            Add to Cart
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    }
+  </div>
+</section>
