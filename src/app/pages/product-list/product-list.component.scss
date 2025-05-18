@@ -1,80 +1,109 @@
-// product-list.component.scss
-.product-container {
-  padding: 2rem;
-  min-height: 100vh;
-  background-color: #f5f5f5;
+/* product-list.component.scss */
 
-.header {
-    margin-bottom: 1rem; // Csökkentjük a margót
+// Dark theme variables
+$primary-color: #121212;    // Sötét, de még kontrasztos fejléc háttér
+$accent-color: #e53935;     // Élénk piros a kiemelésekhez (pl. gombok)
+$background: #333333;       // Fő háttér sötét tónus
+$text-light: #f0f0f0;   
+$background: #333333;       // Fő háttér sötét tónus
+$card-bg:       #1b1919; // Kártyák háttérszíne
+$border-radius: 0.75rem;
+$spacing:       1rem;
+
+// Base styles (mobile-first)
+.product-container {
+  padding: $spacing;
+  min-height: 100vh;
+  background-color: $primary-color;
+  color: $text-light;
+
+  .header {
+    margin-bottom: 1.5rem;
 
     mat-toolbar {
-      margin-bottom: 1rem; // Kisebb margó
-      padding: 0 1rem; // Oldalsó padding
+      background: $primary-color;
+      color: $accent-color;
+      border-radius: $border-radius;
+      padding: 0 1.5rem;
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+
+      span {
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
     }
 
     .filter-section {
-      gap: 0.75rem; // Kisebb rés az elemek között
-      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
 
       mat-form-field {
-        flex: 1 1 250px; // Kisebb minimum szélesség
+        flex: 1 1 250px;
         min-width: 200px;
-        
-        // Angular Material mezők magasságának csökkentése
+
         .mat-mdc-text-field-wrapper,
         .mat-mdc-form-field-flex {
-          height: 48px; // Alapértelmezett 56px helyett
+          height: 48px;
         }
-        
+
         input,
         .mat-mdc-select-value {
-          font-size: 0.9rem; // Kisebb betűméret
+          font-size: 0.95rem;
+          color: $accent-color;
         }
       }
     }
   }
+
+  // Az mdc select panel is sötét, konzisztens színvilággal
   .mat-mdc-select-panel {
-  background: white !important;
-  border-radius: 8px !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-  
-  .mat-mdc-option {
-    padding: 12px 16px !important;
-    
-    &.mdc-list-item--selected {
-      background: rgba(0, 0, 0, 0.04) !important;
-    }
-    
-    &:hover {
-      background: rgba(0, 0, 0, 0.04) !important;
+    background: #1e1e1e !important;
+    border-radius: 10px !important;
+    box-shadow: 0 6px 18px rgba(255, 255, 255, 0.1) !important;
+    color: $accent-color;
+
+    .mat-mdc-option {
+      color: $accent-color !important;
+      padding: 14px 18px !important;
+
+      &.mdc-list-item--selected {
+        background: rgba(255, 255, 255, 0.1) !important;
+      }
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.05) !important;
+      }
     }
   }
-}
 
   .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.5rem;
-    padding: 1rem;
+    padding: 1rem 0;
 
     .product-card {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      border-radius: 8px;
+      background: $card-bg;
+      border-radius: $border-radius;
       overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
 
       &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transform: translateY(-6px);
+        box-shadow: 0 8px 24px rgba(255, 255, 255, 0.1);
       }
 
       mat-card-content {
-        padding: 1.5rem;
+        padding: 1.25rem;
+        color: $accent-color;
 
         h3 {
-          margin: 0 0 1rem;
-          font-size: 1.25rem;
-          font-weight: 500;
-          color: #2c3e50;
+          margin: 0 0 0.75rem;
+          font-size: 1.3rem;
+          font-weight: 600;
+          color: $text-light;
         }
 
         .product-details {
@@ -85,96 +114,138 @@
 
           .price {
             font-size: 1.1rem;
-            font-weight: 600;
-            color: #27ae60;
-            margin: 0;
+            font-weight: 700;
+            color: #22ba40;
           }
 
           .volume {
             font-size: 0.9rem;
-            color: #7f8c8d;
-            margin: 0;
+            color: #cccccc;
           }
         }
 
         .origin {
           font-size: 0.85rem;
-          color: #7f8c8d;
+          color: #b0b0b0;
           margin: 0.5rem 0;
         }
 
         .alcohol {
           font-size: 0.8rem;
-          color: #e74c3c;
           font-weight: 500;
-          margin: 0;
+          color: #ff5252;
         }
       }
 
       mat-card-actions {
         padding: 1rem;
+        background: #2c2c2c;
         display: flex;
         justify-content: flex-end;
 
         .buy-button {
-          font-weight: 500;
+          background-color: $text-light;
+          color: $primary-color;
+          font-weight: 600;
           letter-spacing: 0.5px;
+          border-radius: $border-radius;
         }
       }
     }
   }
 }
 
-// Mobil nézet további finomhangolása
+// Responsive tweaks
+
+// Közepes és nagyobb képernyőkhöz: a filter rész és a grid elrendezés finomítása
+@media (min-width: 600px) {
+  .product-container {
+    .header {
+      .filter-section {
+        flex-direction: row;
+        align-items: center;
+
+        mat-form-field {
+          width: auto;
+          flex: 1;
+        }
+      }
+    }
+
+    .product-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+@media (min-width: 960px) {
+  .product-container {
+    padding: 2rem;
+
+    .product-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  .product-container {
+    .product-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+
+// Kisebb kijelzők finomhangolása
 @media (max-width: 768px) {
   .product-container {
-    padding: 1rem 0.5rem; // Kisebb oldalpaddding
+    padding: 1rem 0.5rem;
 
     .header {
       .filter-section {
-        gap: 0.5rem;
-        
+        gap: 0.75rem;
+
         mat-form-field {
-          // Teljes magasság csökkentése mobilra
           .mat-mdc-text-field-wrapper {
             height: 42px;
           }
-          
+
           .mat-mdc-form-field-infix {
             padding: 8px 0 !important;
             min-height: 40px;
           }
-          
+
           .mat-mdc-input-element {
             padding: 4px 0 !important;
             font-size: 0.85rem !important;
+            color: $accent-color;
           }
-          
+
           .mat-mdc-select {
             font-size: 0.85rem;
           }
         }
       }
     }
-    
+
     .product-grid {
       padding: 0.5rem;
     }
   }
 }
 
-// Extra kicsi képernyők (pl. iPhone SE)
 @media (max-width: 375px) {
   .product-container {
     .header {
       .filter-section {
         mat-form-field {
-          min-width: 100%; // Teljes szélességű elemek
-          
+          min-width: 100%;
+
           .mat-mdc-form-field-flex {
             height: 40px;
           }
-          
+
           .mat-mdc-input-element {
             font-size: 0.8rem !important;
           }

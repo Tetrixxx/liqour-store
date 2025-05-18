@@ -37,6 +37,7 @@ export class ProductListComponent implements OnInit {
   beverages$!: Observable<Liqour[]>;
   categories$!: Observable<string[]>;
   filteredBeverages$!: Observable<Liqour[]>;
+  fontSize: number = 16;
   
   // Filter controls
   searchTerm = '';

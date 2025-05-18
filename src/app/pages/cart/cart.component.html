@@ -1,7 +1,6 @@
 <!-- src/app/cart/cart.component.html -->
 
-<!-- CART VIEW -->
-<div *ngIf="!showCheckout" class="font-size-control" [style.fontSize.px]="fontSize">
+<div class="dark-theme" *ngIf="!showCheckout" [style.fontSize.px]="fontSize">
   <!-- Header Section -->
   <header class="cart-header">
     <div class="container">
@@ -15,6 +14,7 @@
   <!-- Font Size Controls -->
   <div class="size-controls">
     <p>Text size:</p>
+    <!-- A csúszka már módosítja a fontSize értéket -->
     <input type="range" [(ngModel)]="fontSize" min="12" max="20" step="1">
     <span [ngStyle]="{'font-size.px': fontSize}">({{ fontSize }}px)</span>
   </div>
@@ -24,6 +24,7 @@
     <section class="cart-items">
       <mat-card *ngFor="let item of cartItems" class="cart-item">
         <div class="item-image">
+          <!-- az alábbi img tag engedélyezése szükséges, ha van kép -->
           <!-- <img [src]="item.beverage.imageUrl" alt="{{ item.beverage.name }}"> -->
         </div>
         <div class="item-details">
@@ -53,22 +54,18 @@
     <!-- Order Summary -->
     <aside class="order-summary">
       <h2>Order Summary</h2>
-
       <div class="summary-row">
         <span>Subtotal ({{ totalItems() }} items)</span>
         <span>{{ getSubtotal() | currency:'USD' }}</span>
       </div>
-
       <div class="summary-row">
         <span>Shipping</span>
         <span>Calculated at checkout</span>
       </div>
-
       <div class="summary-row total">
         <span>Estimated Total</span>
         <span>{{ getSubtotal() | currency:'USD' }}</span>
       </div>
-
       <div class="promo-code">
         <mat-form-field appearance="outline">
           <input matInput [(ngModel)]="promoCode" placeholder="Enter promo code" name="promoCode">
@@ -77,11 +74,9 @@
           Apply
         </button>
       </div>
-
       <button mat-raised-button color="primary" class="checkout-btn" (click)="proceedToCheckout()">
         Secure Checkout
       </button>
-
       <div class="age-warning">
         <mat-icon>!!!</mat-icon>
         <p>Must be 21+ to purchase alcohol. ID required at delivery.</p>

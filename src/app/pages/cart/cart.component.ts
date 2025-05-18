@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { Auth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { MatToolbar } from '@angular/material/toolbar'; 
 
 @Component({
   selector: 'app-cart',

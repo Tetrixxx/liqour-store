@@ -1,9 +1,15 @@
 <!-- product-list.component.html -->
-<section class="product-container">
+<section class="product-container" [style.fontSize.px]="fontSize">
   <div class="header">
     <mat-toolbar color="primary">
       <span>Our Beverages</span>
     </mat-toolbar>
+
+    <div class="size-controls">
+      <p>Text size:</p>
+      <input type="range" [(ngModel)]="fontSize" min="12" max="20" step="1">
+      <span [ngStyle]="{'font-size.px': fontSize}">({{ fontSize }}px)</span>
+    </div>
 
     <div class="filter-section">
       <mat-form-field appearance="outline">

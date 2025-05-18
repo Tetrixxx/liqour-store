@@ -43,7 +43,7 @@
             type="button"
             aria-label="Jelszó láthatósága"
           >
-            <mat-icon>{{ hidePassword ? 'O' : 'I' }}</mat-icon>
+            <mat-icon>{{ hidePassword ? '-' : 'o' }}</mat-icon>
           </button>
           <mat-error *ngIf="signupForm.get('password')?.hasError('required')">
             Jelszó kötelező
