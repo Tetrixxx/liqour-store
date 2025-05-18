@@ -4,7 +4,6 @@
     <mat-sidenav #sidenav mode="side" opened class="sidenav">
       <div class="user-summary">
         <!-- Az avatar helyére egy span, mely egy esetleges háttérképet tartalmazhat -->
-        <span class="icon-avatar"></span>
         <h2>{{ user?.displayName || 'Felhasználó' }}</h2>
         <p class="email">{{ user?.email }}</p>
         <p class="member-since">
@@ -43,7 +42,6 @@
 
       <mat-card class="section-card">
         <div class="card-header">
-          <span class="icon-card"></span>
           <mat-card-title>Személyes adatok</mat-card-title>
         </div>
         <mat-card-content>
@@ -72,7 +70,6 @@
 
       <mat-card class="section-card">
         <div class="card-header">
-          <span class="icon-card" style="background-image: url('assets/home-icon.svg');"></span>
           <mat-card-title>Alapértelmezett cím</mat-card-title>
         </div>
         <mat-card-content>
@@ -87,7 +84,6 @@
 
       <mat-card class="section-card">
         <div class="card-header">
-          <span class="icon-card" style="background-image: url('assets/security-icon.svg');"></span>
           <mat-card-title>Biztonság</mat-card-title>
         </div>
         <mat-card-content>

@@ -1,4 +1,3 @@
-<!-- product-list.component.html -->
 <section class="product-container" [style.fontSize.px]="fontSize">
   <div class="header">
     <mat-toolbar color="primary">
@@ -14,9 +13,9 @@
     <div class="filter-section">
       <mat-form-field appearance="outline">
         <mat-label>Search</mat-label>
-        <input 
-          matInput 
-          [(ngModel)]="searchTerm" 
+        <input
+          matInput
+          [(ngModel)]="searchTerm"
           (input)="updateSearch()"
           placeholder="Search drinks..."
         >
@@ -24,8 +23,8 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Category</mat-label>
-        <mat-select 
-          [(ngModel)]="selectedCategory" 
+        <mat-select
+          [(ngModel)]="selectedCategory"
           (selectionChange)="updateCategory()"
         >
           @for (category of categories$ | async; track category) {
@@ -33,16 +32,17 @@
               {{ category | titlecase }}
             </mat-option>
           }
-      </mat-select>
+        </mat-select>
       </mat-form-field>
-            <mat-form-field appearance="outline">
-          <mat-label>Sort By</mat-label>
-            <mat-select [(ngModel)]="selectedSort" (selectionChange)="updateSort()">
-              <mat-option value="default">Default</mat-option>
-              <mat-option value="priceDesc">Price: High to Low</mat-option>
-              <mat-option value="priceAsc">Price: Low to High</mat-option>
-            </mat-select>
-        </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Sort By</mat-label>
+        <mat-select [(ngModel)]="selectedSort" (selectionChange)="updateSort()">
+          <mat-option value="default">Default</mat-option>
+          <mat-option value="priceDesc">Price: High to Low</mat-option>
+          <mat-option value="priceAsc">Price: Low to High</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </div>
 
