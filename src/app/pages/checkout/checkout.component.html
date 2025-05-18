@@ -1,46 +1,43 @@
 <mat-toolbar class="checkout-header">
-    <button mat-icon-button (click)="goBackToCart()" class="back-button">
-      <mat-icon>&larr;</mat-icon>
-    </button>
+  <button mat-icon-button (click)="goBackToCart()" class="back-button">
+    <mat-icon>&larr;</mat-icon>
+  </button>
   <h1>Spirits & More</h1>
-<mat-horizontal-stepper [selectedIndex]="activeStep">
-  <mat-step label="Information"></mat-step> <!-- Start at step 0 -->
-  <mat-step label="Payment"></mat-step>
-</mat-horizontal-stepper>
+  <mat-horizontal-stepper [selectedIndex]="activeStep">
+    <mat-step label="Information"></mat-step>
+    <mat-step label="Payment"></mat-step>
+  </mat-horizontal-stepper>
 </mat-toolbar>
 
 <main class="checkout-main">
   <div class="container">
-    <!-- Dynamic cart items listing -->
-    @if (cartItems && cartItems.length) {
-      <section class="cart-items">
-        <h2>Your Order ({{ getTotalItems() }} items)</h2>
-        @for (item of cartItems; track item.beverage.id) {
-          <mat-card class="cart-item">
-            <mat-card-content>
-              <h3>{{ item.beverage.name }}</h3>
-              <p class="price">{{ item.beverage.price | priceWithTax }}</p>              <div class="quantity-controls">
-                <button mat-icon-button (click)="decrementQty(item)">
-                  <mat-icon>-</mat-icon>
-                </button>
-                <span class="quantity">{{ item.quantity }}</span>
-                <button mat-icon-button (click)="incrementQty(item)">
-                  <mat-icon>+</mat-icon>
-                </button>
-              </div>
-            </mat-card-content>
-          </mat-card>
-        }
-        <aside class="order-summary">
-          <div class="summary-row">
-            <span>Price with taxes({{ getTotalItems() }} items)</span>   
-            <span>{{ getSubtotal() | priceWithTax }}</span>
+    <!-- Dinamikusan listázzuk a checkout oldalra átadott kosár termékeket -->
+    <section class="cart-items" *ngIf="cartItems && cartItems.length">
+      <h2>Your Order ({{ getTotalItems() }} items)</h2>
+      <mat-card class="cart-item" *ngFor="let item of cartItems; trackBy: trackByBeverageId">
+        <mat-card-content>
+          <h3>{{ item.beverage.name }}</h3>
+          <p class="price">{{ item.beverage.price | priceWithTax }}</p>
+          <div class="quantity-controls">
+            <button mat-icon-button (click)="decrementQty(item)">
+              <mat-icon>-</mat-icon>
+            </button>
+            <span class="quantity">{{ item.quantity }}</span>
+            <button mat-icon-button (click)="incrementQty(item)">
+              <mat-icon>+</mat-icon>
+            </button>
           </div>
-        </aside>
-      </section>
-    }
+        </mat-card-content>
+      </mat-card>
+      <aside class="order-summary">
+        <div class="summary-row">
+          <span>Price with taxes ({{ getTotalItems() }} items)</span>
+          <span>{{ getSubtotal() | priceWithTax }}</span>
+        </div>
+      </aside>
+    </section>
 
-    <!-- Checkout Form -->
+    <!-- Checkout űrlap -->
     <form [formGroup]="checkoutForm" class="checkout-form">
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>

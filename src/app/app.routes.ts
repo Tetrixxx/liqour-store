@@ -13,20 +13,13 @@ import { authGuard } from './shared/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
-
   { path: 'products', component: ProductListComponent },
   { path: 'products/:id', component: ProductDetailComponent },
-
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent, canActivate: [authGuard] },
-
   { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
-
-  // Új route-ok hozzáadva
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-
-  // Catch-all a nem létező utakhoz (mindig legyen utoljára!)
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 

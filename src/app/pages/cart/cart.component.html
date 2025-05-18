@@ -1,6 +1,4 @@
-<!-- src/app/cart/cart.component.html -->
-
-<div class="dark-theme" *ngIf="!showCheckout" [style.fontSize.px]="fontSize">
+<div class="dark-theme" [style.fontSize.px]="fontSize">
   <!-- Header Section -->
   <header class="cart-header">
     <div class="container">
@@ -14,7 +12,6 @@
   <!-- Font Size Controls -->
   <div class="size-controls">
     <p>Text size:</p>
-    <!-- A csúszka már módosítja a fontSize értéket -->
     <input type="range" [(ngModel)]="fontSize" min="12" max="20" step="1">
     <span [ngStyle]="{'font-size.px': fontSize}">({{ fontSize }}px)</span>
   </div>
@@ -22,9 +19,9 @@
   <main class="container">
     <!-- Cart Items Section -->
     <section class="cart-items">
-      <mat-card *ngFor="let item of cartItems" class="cart-item">
+      <mat-card *ngFor="let item of cartItems; trackBy: trackByBeverageId" class="cart-item">
         <div class="item-image">
-          <!-- az alábbi img tag engedélyezése szükséges, ha van kép -->
+          <!-- Ha van kép, akkor engedélyezd -->
           <!-- <img [src]="item.beverage.imageUrl" alt="{{ item.beverage.name }}"> -->
         </div>
         <div class="item-details">
@@ -70,9 +67,7 @@
         <mat-form-field appearance="outline">
           <input matInput [(ngModel)]="promoCode" placeholder="Enter promo code" name="promoCode">
         </mat-form-field>
-        <button mat-raised-button color="accent" (click)="applyPromoCode()">
-          Apply
-        </button>
+        <button mat-raised-button color="accent" (click)="applyPromoCode()">Apply</button>
       </div>
       <button mat-raised-button color="primary" class="checkout-btn" (click)="proceedToCheckout()">
         Secure Checkout
@@ -98,9 +93,3 @@
     </div>
   </footer>
 </div>
-
-<app-checkout *ngIf="showCheckout"
-  [cartItems]="cartItems"
-  (checkoutComplete)="showCheckout = false"
-  (returnToCart)="showCheckout = false">
-</app-checkout>

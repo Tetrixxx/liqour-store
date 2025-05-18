@@ -1,4 +1,5 @@
-import { Component, Input, NgModule, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -8,44 +9,44 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatStepperModule } from '@angular/material/stepper'; // Added MatStepperModule
-import { Output, EventEmitter } from '@angular/core';
-import { PriceWithTaxPipe } from "../../shared/Pipe";
-import { MatNativeDateModule } from '@angular/material/core'; // Add this line
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatNativeDateModule } from '@angular/material/core';
+import { PriceWithTaxPipe } from '../../shared/Pipe';
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
   imports: [
     CommonModule,
-    MatCardModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    MatDatepickerModule,
     ReactiveFormsModule,
     MatToolbarModule,
-    MatStepperModule,
-    PriceWithTaxPipe,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
     MatDatepickerModule,
+    MatStepperModule,
     MatNativeDateModule,
-],
+    PriceWithTaxPipe
+  ],
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements OnInit {
-  
-  @Output() returnToCart = new EventEmitter<void>();
-  @Output() checkoutComplete = new EventEmitter<void>();
-  @Input() cartItems: any[] = [];
+  // A kosár tartalma a router state‑ből jön át
+  cartItems: any[] = [];
   checkoutForm!: FormGroup;
   activeStep = 0;
   currentYear = new Date().getFullYear();
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
+    // A router state-ből olvassuk ki a kosár termékeket.
+    // Fontos: ha a felhasználó már refreshed a checkout oldalon, history.state.cartItems undefined lehet.
+    this.cartItems = history.state.cartItems || [];
+
     this.checkoutForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       birthday: ['', Validators.required],
@@ -55,21 +56,23 @@ export class CheckoutComponent implements OnInit {
       instructions: ['']
     });
   }
-  goBackToCart() {
-    this.returnToCart.emit();
+
+  goBackToCart(): void {
+    // Visszatérés a kosár oldalra
+    this.router.navigate(['/cart']);
   }
 
-  incrementQty(item: any) {
+  incrementQty(item: any): void {
     item.quantity++;
   }
 
-  decrementQty(item: any) {
+  decrementQty(item: any): void {
     if (item.quantity > 1) {
       item.quantity--;
     }
   }
 
-  getTotalItems() {
+  getTotalItems(): number {
     return this.cartItems.reduce((total, item) => total + item.quantity, 0);
   }
 
@@ -77,16 +80,19 @@ export class CheckoutComponent implements OnInit {
     return item.beverage.id;
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.checkoutForm.valid) {
       console.log('Form submitted:', this.checkoutForm.value);
       this.activeStep++;
-      this.checkoutComplete.emit(); // Emit the output event
+      // Itt tovább lehet léptetni a fizetési folyamatot, vagy más logikát lehet implementálni.
     }
   }
 
-  getSubtotal() {
-  return this.cartItems.reduce((sum: number, item: { beverage: { price: number; }; quantity: number; }) => sum + item.beverage.price * item.quantity, 0);
+  getSubtotal(): number {
+    return this.cartItems.reduce(
+      (sum: number, item: { beverage: { price: number }; quantity: number }) =>
+        sum + item.beverage.price * item.quantity,
+      0
+    );
   }
-
 }
