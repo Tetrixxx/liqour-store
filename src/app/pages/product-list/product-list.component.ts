@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { Liqour } from '../../shared/models/liqour.model';
 import { LiqourService } from '../../shared/services/liqour.service';
 import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, switchMap } from 'rxjs/operators';
 import { Inject } from '@angular/core';
 
 // Angular Material imports
@@ -38,6 +38,7 @@ export class ProductListComponent implements OnInit {
   categories$!: Observable<string[]>;
   filteredBeverages$!: Observable<Liqour[]>;
   fontSize: number = 16;
+  selectedSort: 'default' | 'priceDesc' | 'priceAsc' = 'default';
   
   // Filter controls
   searchTerm = '';
@@ -46,7 +47,9 @@ export class ProductListComponent implements OnInit {
   // Subjects for filtering
   private searchTerm$ = new BehaviorSubject<string>('');
   private category$ = new BehaviorSubject<string>('all');
+  private sort$ = new BehaviorSubject<'default' | 'priceDesc' | 'priceAsc'>('default');
   constructor(@Inject(LiqourService) private liqourService: LiqourService) {}
+
 
   ngOnInit(): void {
     this.initData();
@@ -54,8 +57,18 @@ export class ProductListComponent implements OnInit {
   }
 
   private initData(): void {
-    this.beverages$ = this.liqourService.getLiqours();
+    this.beverages$ = this.sort$.pipe(
+      switchMap(sort => {
+        if (sort === 'priceDesc') return this.liqourService.getLiqoursSortedByPriceDesc();
+        if (sort === 'priceAsc') return this.liqourService.getLiqoursSortedByPriceAsc();
+        return this.liqourService.getLiqours();
+      })
+    );
     this.categories$ = this.liqourService.getCategories();
+  }
+
+    updateSort(): void {
+    this.sort$.next(this.selectedSort);
   }
 
   private setupFiltering(): void {
@@ -72,6 +85,7 @@ export class ProductListComponent implements OnInit {
       )
     );
   }
+  
 
   private filterByCategory(beverage: Liqour, category: string): boolean {
     return category === 'all' || beverage.category === category;

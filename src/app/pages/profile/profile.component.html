@@ -1,85 +1,83 @@
-<!-- profile.component.html -->
 <div class="profile-container">
   <mat-sidenav-container class="sidenav-container">
-    <!-- Side Navigation -->
+    <!-- Oldalsó navigáció -->
     <mat-sidenav #sidenav mode="side" opened class="sidenav">
       <div class="user-summary">
-        <mat-icon class="avatar-icon">account_circle</mat-icon>
+        <!-- Az avatar helyére egy span, mely egy esetleges háttérképet tartalmazhat -->
+        <span class="icon-avatar"></span>
         <h2>{{ user?.displayName || 'Felhasználó' }}</h2>
         <p class="email">{{ user?.email }}</p>
-        <p class="member-since">Tagság kezdete: {{ user?.metadata?.creationTime | date }}</p>
+        <p class="member-since">
+          Tagság kezdete: {{ user?.metadata?.creationTime | date }}
+        </p>
       </div>
 
       <mat-nav-list>
         <a mat-list-item routerLink="/profile" routerLinkActive="active-link">
-          <mat-icon>person</mat-icon>
+          <!-- Ikonok nélkül – opcionálisan beilleszthető egyéni ikonok span-ba csomagolva -->
           <span>Profil</span>
         </a>
         <a mat-list-item routerLink="/orders">
-          <mat-icon>shopping_cart</mat-icon>
           <span>Rendelések</span>
         </a>
         <a mat-list-item routerLink="/addresses">
-          <mat-icon>location_on</mat-icon>
           <span>Címek</span>
         </a>
         <a mat-list-item routerLink="/security">
-          <mat-icon>lock</mat-icon>
           <span>Biztonság</span>
         </a>
         <a mat-list-item (click)="logout()">
-          <mat-icon>logout</mat-icon>
           <span>Kijelentkezés</span>
         </a>
       </mat-nav-list>
     </mat-sidenav>
 
-    <!-- Main Content -->
+    <!-- Fő tartalom -->
     <mat-sidenav-content class="content">
       <div class="header">
         <h1>Profil adatok</h1>
         <button mat-raised-button color="primary" (click)="openEditDialog()">
-          <mat-icon>edit</mat-icon>
           Szerkesztés
         </button>
       </div>
 
       <mat-card class="section-card">
-        <mat-card-header>
-          <mat-icon mat-card-avatar>badge</mat-icon>
+        <div class="card-header">
+          <span class="icon-card"></span>
           <mat-card-title>Személyes adatok</mat-card-title>
-        </mat-card-header>
+        </div>
         <mat-card-content>
-          <mat-list>
-            <mat-list-item>
-              <h3 matLine>Teljes név</h3>
-              <p matLine>{{ user?.displayName || 'Nincs megadva' }}</p>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item>
-              <h3 matLine>Email cím</h3>
-              <p matLine>
+          <!-- A data-grid konténer két oszlopban rendezi el az adat elemeket -->
+          <div class="data-grid">
+            <div class="data-item">
+              <label>Teljes név:</label>
+              <div class="value">{{ user?.displayName || 'Nincs megadva' }}</div>
+            </div>
+            <div class="data-item">
+              <label>Email cím:</label>
+              <div class="value">
                 {{ user?.email }}
-                <mat-icon class="verified-icon" *ngIf="user?.emailVerified">check_circle</mat-icon>
-              </p>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item>
-              <h3 matLine>Telefonszám</h3>
-              <p matLine>{{ user?.phoneNumber || 'Nincs megadva' }}</p>
-            </mat-list-item>
-          </mat-list>
+                <!-- Ha szükséges, itt elhelyezheted a jelet ellenőrzéshez -->
+                <!-- <span class="verified-icon">✔</span> -->
+              </div>
+            </div>
+            <div class="data-item full-width">
+              <label>Telefonszám:</label>
+              <div class="value">{{ user?.phoneNumber || 'Nincs megadva' }}</div>
+            </div>
+          </div>
         </mat-card-content>
       </mat-card>
 
+
       <mat-card class="section-card">
-        <mat-card-header>
-          <mat-icon mat-card-avatar>home</mat-icon>
+        <div class="card-header">
+          <span class="icon-card" style="background-image: url('assets/home-icon.svg');"></span>
           <mat-card-title>Alapértelmezett cím</mat-card-title>
-        </mat-card-header>
+        </div>
         <mat-card-content>
           <div *ngIf="defaultAddress; else noAddress">
-           
+            <!-- Itt jelenítheted meg a mentett címet -->
           </div>
           <ng-template #noAddress>
             <p>Nincs mentett cím</p>
@@ -88,18 +86,16 @@
       </mat-card>
 
       <mat-card class="section-card">
-        <mat-card-header>
-          <mat-icon mat-card-avatar>security</mat-icon>
+        <div class="card-header">
+          <span class="icon-card" style="background-image: url('assets/security-icon.svg');"></span>
           <mat-card-title>Biztonság</mat-card-title>
-        </mat-card-header>
+        </div>
         <mat-card-content>
           <div class="security-actions">
             <button mat-raised-button (click)="changePassword()">
-              <mat-icon>key</mat-icon>
               Jelszó változtatása
             </button>
             <button mat-raised-button color="warn" (click)="openDeleteDialog()">
-              <mat-icon>delete</mat-icon>
               Fiók törlése
             </button>
           </div>

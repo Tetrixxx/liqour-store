@@ -33,8 +33,16 @@
               {{ category | titlecase }}
             </mat-option>
           }
-        </mat-select>
+      </mat-select>
       </mat-form-field>
+            <mat-form-field appearance="outline">
+          <mat-label>Sort By</mat-label>
+            <mat-select [(ngModel)]="selectedSort" (selectionChange)="updateSort()">
+              <mat-option value="default">Default</mat-option>
+              <mat-option value="priceDesc">Price: High to Low</mat-option>
+              <mat-option value="priceAsc">Price: Low to High</mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
   </div>
 

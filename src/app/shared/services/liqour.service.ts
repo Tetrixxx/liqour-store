@@ -6,6 +6,8 @@ import {
   collectionData,
   doc,
   getDocs,
+  limit,
+  orderBy,
   query,
   setDoc,
   where
@@ -58,4 +60,27 @@ export class LiqourService {
     );
     return collectionData(q, { idField: 'id' }) as Observable<Liqour[]>;
   }
+  getLiqoursSortedByPriceAsc(): Observable<Liqour[]> {
+  const q = query(
+    collection(this.firestore, this.collectionName),
+    orderBy('price', 'asc')
+  );
+  return collectionData(q, { idField: 'id' }) as Observable<Liqour[]>;
+  }
+    getLiqoursSortedByPriceDesc(): Observable<Liqour[]> {
+    const q = query(
+      collection(this.firestore, this.collectionName),
+      orderBy('price', 'desc')
+    );
+    return collectionData(q, { idField: 'id' }) as Observable<Liqour[]>;
+  }
+  getTopPremiumScotch(): Observable<Liqour[]> {
+  const q = query(
+    collection(this.firestore, this.collectionName),  // Skót whiskey szűrés
+    orderBy('price', 'desc'),  // Csökkenő ársorrend
+    limit(2)  // Csak 2 termék
+  );
+  
+  return collectionData(q, { idField: 'id' }) as Observable<Liqour[]>;
+}
 }
