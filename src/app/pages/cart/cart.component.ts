@@ -33,6 +33,14 @@ export class CartComponent {
     private router: Router
   ) {}
 
+    ngOnInit(): void {
+    // Read the state when component initializes
+    const state = history.state;
+    if (state && state.cartItems) {
+      this.cartItems = state.cartItems;
+    }
+  }
+  
   decrementQty(item: any) {
     if (item.quantity > 1) {
       item.quantity--;

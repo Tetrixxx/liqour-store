@@ -1,24 +1,24 @@
-// Variables
-$primary-color: #2c3e50;
-$accent-color: #8b0000;
-$light-bg: #f8f9fa;
-$text-dark: #2c3e50;
-$text-light: #ffffff;
-$border-color: #ddd;
+/* Változók */
+$primary-color: #1f1f1f;   // Fő háttérszín a headerhez, sötét árnyalat
+$accent-color:  #e53935;    // Élénk lila/ibolya szín, mely kiemeli az interaktív elemeket
+$card-bg:       #1e1e1e;    // Kártyák, űrlapok, kosár elemek háttérszíne 
+$dark-bg:       #121212;    // Teljes oldal háttérszíne
+$text-color:    #ffffff;    // Általános, jól olvasható szövegszín
+$border-color:  rgba(255, 255, 255, 0.2);
 $breakpoints: (
   small: 480px,
   medium: 768px,
   large: 992px
 );
 
-// Mixins
+/* Breakpoint mixin – mobile first megközelítés */
 @mixin breakpoint($size) {
   @media (min-width: map-get($breakpoints, $size)) {
     @content;
   }
 }
 
-// Base Styles
+/* Alap stílusok */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -27,31 +27,32 @@ $breakpoints: (
 
 body {
   font-family: 'Arial', sans-serif;
-  background-color: $light-bg;
-  color: $text-dark;
+  background-color: $dark-bg;
+  color: $text-color;
 }
 
+/* Konténer */
 .container {
   width: 95%;
   margin: 0 auto;
   padding: 1rem;
 }
 
-// Age Verification Modal
+/* Age Verification Modal (Um. ha szükséges – itt is sötét háttér) */
 .age-verification {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.9);
+  background: rgba(0, 0, 0, 0.9);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
 
   .verification-modal {
-    background: white;
+    background: $card-bg;
     padding: 2rem;
     border-radius: 10px;
     text-align: center;
@@ -71,14 +72,45 @@ body {
   }
 }
 
-// Header
+/* Header */
 .checkout-header {
   background: $primary-color;
-  color: $text-light;
+  color: $text-color;
   padding: 1rem 0;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 60px;
+
+  .back-button {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+
+    mat-icon {
+      color: $text-color;
+      font-size: 24px;
+    }
+  }
+
+  h1 {
+    margin: 0;
+    text-align: center;
+    flex: 1;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-left: 40px; // Hely a back gomb miatt
+  }
 
   .progress-steps {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
     display: flex;
     justify-content: space-between;
     margin-top: 1.5rem;
@@ -87,7 +119,7 @@ body {
       flex: 1;
       text-align: center;
       padding: 0.5rem;
-      border-bottom: 3px solid rgba(255,255,255,0.3);
+      border-bottom: 3px solid rgba(255, 255, 255, 0.3);
 
       &.active {
         border-color: $accent-color;
@@ -97,9 +129,11 @@ body {
   }
 }
 
-// Main Content
+/* Fő tartalom */
 .checkout-main {
   padding: 2rem 0;
+  color: $text-color;
+  background-color: #121212;
 
   @include breakpoint(medium) {
     .container {
@@ -111,12 +145,17 @@ body {
   }
 }
 
+/* Kosár elemek */
 .cart-items {
-  background: white;
+  background: $card-bg;
   padding: 1.5rem;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
   margin-bottom: 2rem;
+  
+  h2 {
+    color: $text-color;
+  }
 
   .cart-item {
     display: flex;
@@ -124,15 +163,13 @@ body {
     padding: 1rem 0;
     border-bottom: 1px solid $border-color;
 
-    img {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 5px;
-    }
-
     .item-details {
       flex: 1;
+
+      h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+      }
 
       .price {
         font-weight: bold;
@@ -145,10 +182,9 @@ body {
         align-items: center;
         gap: 0.5rem;
 
-        .qty-btn {
-          padding: 0.3rem 0.8rem;
+        button {
           background: $primary-color;
-          color: white;
+          color: $text-color;
           border: none;
           border-radius: 3px;
           cursor: pointer;
@@ -156,17 +192,35 @@ body {
       }
     }
   }
+  
+  .order-summary {
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid $border-color;
+
+      &.total {
+        font-weight: bold;
+        font-size: 1.1rem;
+        border-bottom: none;
+      }
+    }
+  }
 }
 
+/* Checkout űrlap */
 .checkout-form {
-  background: white;
+  background: $card-bg;
   padding: 1.5rem;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  color: $text-color;
 
   h2 {
     margin-bottom: 1.5rem;
-    color: $primary-color;
+    color: $accent-color;
   }
 
   .form-group {
@@ -178,12 +232,15 @@ body {
       font-weight: bold;
     }
 
-    input, textarea {
+    input,
+    textarea {
       width: 100%;
       padding: 0.8rem;
       border: 1px solid $border-color;
       border-radius: 4px;
       font-size: 1rem;
+      background: transparent;
+      color: $text-color;
     }
   }
 
@@ -200,7 +257,7 @@ body {
     width: 100%;
     padding: 1rem;
     background: $accent-color;
-    color: white;
+    color: $text-color;
     border: none;
     border-radius: 5px;
     font-size: 1.1rem;
@@ -212,49 +269,11 @@ body {
     }
   }
 }
-.checkout-header {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 60px; // Add horizontal padding for balance
 
-  .back-button {
-    position: absolute;
-    left: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 1; // Ensure it stays above other elements
-
-    mat-icon {
-      color: $text-light; // Match header text color
-      font-size: 24px; // Adjust icon size
-    }
-  }
-
-  h1 {
-    margin: 0;
-    text-align: center;
-    flex: 1;
-    font-size: 1.5rem;
-    font-weight: 500;
-  }
-
-  .progress-steps {
-    position: absolute;
-    right: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-}
-  h1 {
-    margin-left: 40px; // Make space for back button
-  }
-
-// Footer
+/* Lábléc */
 .checkout-footer {
   background: $primary-color;
-  color: $text-light;
+  color: $text-color;
   padding: 1rem 0;
   text-align: center;
   margin-top: 2rem;
@@ -264,21 +283,8 @@ body {
     opacity: 0.9;
   }
 }
-.summary-row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid $border-color;
 
-  &.total {
-    font-weight: bold;
-    font-size: 1.1rem;
-    border-bottom: none;
-  }
-}
-
-// Responsive Adjustments
+/* Reszponzív módosítások */
 @include breakpoint(medium) {
   .container {
     width: 90%;

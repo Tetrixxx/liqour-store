@@ -57,10 +57,9 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-  goBackToCart(): void {
-    // Visszatérés a kosár oldalra
-    this.router.navigate(['/cart']);
-  }
+goBackToCart(): void {
+  this.router.navigate(['/cart'], { state: { cartItems: this.cartItems } });
+}
 
   incrementQty(item: any): void {
     item.quantity++;

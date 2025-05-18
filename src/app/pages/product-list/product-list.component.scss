@@ -22,7 +22,7 @@ $spacing:       1rem;
 
     mat-toolbar {
       background: $primary-color;
-      color: $accent-color;
+      color: $text-light;
       border-radius: $border-radius;
       padding: 0 1.5rem;
       box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
@@ -41,18 +41,19 @@ $spacing:       1rem;
 
       mat-form-field {
         flex: 1 1 250px;
-        min-width: 200px;
+        min-width: 200px;      
 
         .mat-mdc-text-field-wrapper,
         .mat-mdc-form-field-flex {
           height: 48px;
         }
 
-        input,
+        .input,
         .mat-mdc-select-value {
           font-size: 0.95rem;
-          color: $accent-color;
+          color: $text-light;
         }
+        
       }
     }
   }
@@ -65,7 +66,7 @@ $spacing:       1rem;
     color: $accent-color;
 
     .mat-mdc-option {
-      color: $accent-color !important;
+      color: $text-light !important;
       padding: 14px 18px !important;
 
       &.mdc-list-item--selected {
