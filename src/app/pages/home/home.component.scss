@@ -5,6 +5,8 @@ $accent-color: #8b0000;
 $background-color: #f5f5f5;
 $text-light: #ffffff;
 $font-primary: 'Arial', sans-serif;
+@use "sass:color";  // Add this line
+@use "sass:map";
 
 // Breakpoints
 $breakpoints: (
@@ -14,9 +16,8 @@ $breakpoints: (
   xlarge: 1200px
 );
 
-// Mixins
 @mixin breakpoint($size) {
-  @media (min-width: map-get($breakpoints, $size)) {
+  @media (min-width: map.get($breakpoints, $size)) {
     @content;
   }
 }
@@ -88,7 +89,7 @@ nav {
       transition: color 0.3s;
 
       &:hover {
-        color: darken($text-light, 20%);
+        background-color: color.scale($text-light, $lightness: -10%); 
       }
 
       @include breakpoint(small) {
@@ -161,7 +162,7 @@ nav {
     transition: background-color 0.3s;
 
     &:hover {
-      background-color: darken($accent-color, 10%);
+      background-color: color.scale($accent-color, $lightness: -10%);
     }
 
     @include breakpoint(small) {

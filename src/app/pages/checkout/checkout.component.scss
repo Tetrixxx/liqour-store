@@ -5,15 +5,17 @@ $card-bg:       #1e1e1e;    // Kártyák, űrlapok, kosár elemek háttérszíne
 $dark-bg:       #121212;    // Teljes oldal háttérszíne
 $text-color:    #ffffff;    // Általános, jól olvasható szövegszín
 $border-color:  rgba(255, 255, 255, 0.2);
+@use "sass:color";
+@use "sass:map";
+
 $breakpoints: (
   small: 480px,
   medium: 768px,
   large: 992px
 );
 
-/* Breakpoint mixin – mobile first megközelítés */
 @mixin breakpoint($size) {
-  @media (min-width: map-get($breakpoints, $size)) {
+  @media (min-width: map.get($breakpoints, $size)) {
     @content;
   }
 }
@@ -265,7 +267,7 @@ body {
     transition: background 0.3s;
 
     &:hover {
-      background: darken($accent-color, 10%);
+       background-color: color.scale($accent-color, $lightness: -10%);
     }
   }
 }
