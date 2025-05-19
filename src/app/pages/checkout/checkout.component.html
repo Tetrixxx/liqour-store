@@ -34,6 +34,12 @@
           <span>Price with taxes ({{ getTotalItems() }} items)</span>
           <span>{{ getSubtotal() | priceWithTax }}</span>
         </div>
+        <div class="summary-row">
+          <span>Price with discount</span>
+            <span class="price">
+              {{ getSubtotal() | discountPrice:0.1 | currency: '$' }}
+            </span>
+        </div>
       </aside>
     </section>
 

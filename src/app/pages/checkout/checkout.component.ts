@@ -12,6 +12,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatNativeDateModule } from '@angular/material/core';
 import { PriceWithTaxPipe } from '../../shared/Pipe';
+import { DiscountPricePipe } from "../../shared/Pipe2";
 
 @Component({
   selector: 'app-checkout',
@@ -28,18 +29,19 @@ import { PriceWithTaxPipe } from '../../shared/Pipe';
     MatDatepickerModule,
     MatStepperModule,
     MatNativeDateModule,
-    PriceWithTaxPipe
-  ],
+    PriceWithTaxPipe,
+    DiscountPricePipe
+],
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements OnInit {
-  // Három input: a checkout oldal címét, a stepper megjelenítését és a pénznem szimbólumát lehet így paraméterezni
+  // Input-ok
   @Input() checkoutTitle: string = 'Checkout';
   @Input() showStepper: boolean = true;
   @Input() currencySymbol: string = '$';
 
-  // Három output: rendelés leadtát, űrlap érvényességének változását és a visszalépést a kosárra jelezhetjük így
+  // Output-ok
   @Output() orderSubmitted: EventEmitter<any> = new EventEmitter<any>();
   @Output() formValidityChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() backToCartEvent: EventEmitter<any[]> = new EventEmitter<any[]>();
@@ -63,6 +65,8 @@ export class CheckoutComponent implements OnInit {
       zip: ['', Validators.required],
       instructions: ['']
     });
+
+
 
     // Az űrlap validitásának változását jelezzük
     this.checkoutForm.statusChanges.subscribe(status => {
@@ -98,7 +102,7 @@ export class CheckoutComponent implements OnInit {
       console.log('Form submitted:', this.checkoutForm.value);
       this.orderSubmitted.emit(this.checkoutForm.value);
       this.activeStep++;
-      // További fizetési logikát itt lehet megvalósítani.
+      // További fizetési logika itt megvalósítható.
     }
   }
 
@@ -110,3 +114,4 @@ export class CheckoutComponent implements OnInit {
     );
   }
 }
+
