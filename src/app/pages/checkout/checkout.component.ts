@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -31,11 +31,11 @@ import { DiscountPricePipe } from "../../shared/Pipe2";
     MatNativeDateModule,
     PriceWithTaxPipe,
     DiscountPricePipe
-],
+  ],
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.scss']
 })
-export class CheckoutComponent implements OnInit {
+export class CheckoutComponent implements OnInit, AfterViewInit {
   // Input-ok
   @Input() checkoutTitle: string = 'Checkout';
   @Input() showStepper: boolean = true;
@@ -45,6 +45,9 @@ export class CheckoutComponent implements OnInit {
   @Output() orderSubmitted: EventEmitter<any> = new EventEmitter<any>();
   @Output() formValidityChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() backToCartEvent: EventEmitter<any[]> = new EventEmitter<any[]>();
+
+  // A template-ben található email input elérésére szükséges
+  @ViewChild('emailInput') emailInput!: ElementRef;
 
   cartItems: any[] = [];
   checkoutForm!: FormGroup;
@@ -66,12 +69,18 @@ export class CheckoutComponent implements OnInit {
       instructions: ['']
     });
 
-
-
     // Az űrlap validitásának változását jelezzük
     this.checkoutForm.statusChanges.subscribe(status => {
       this.formValidityChanged.emit(status === 'VALID');
     });
+  }
+
+  ngAfterViewInit(): void {
+    // Miután a nézet teljesen betöltődött, fókuszáljuk az első input mezőt.
+    if (this.emailInput && this.emailInput.nativeElement) {
+      this.emailInput.nativeElement.focus();
+      console.log('Az email input mező automatikusan fókuszba került.');
+    }
   }
 
   goBackToCart(): void {
@@ -114,4 +123,3 @@ export class CheckoutComponent implements OnInit {
     );
   }
 }
-
