@@ -2,7 +2,10 @@
   <button mat-icon-button (click)="goBackToCart()" class="back-button">
     <mat-icon>&larr;</mat-icon>
   </button>
-  <mat-horizontal-stepper [selectedIndex]="activeStep">
+  <!-- A checkout címet az inputból jelenítjük meg -->
+  <span class="checkout-title">{{ checkoutTitle }}</span>
+  <!-- A stepper csak akkor jelenik meg, ha ezt az inputban engedélyezzük -->
+  <mat-horizontal-stepper *ngIf="showStepper" [selectedIndex]="activeStep">
   </mat-horizontal-stepper>
 </mat-toolbar>
 

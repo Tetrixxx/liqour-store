@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -34,7 +34,16 @@ import { PriceWithTaxPipe } from '../../shared/Pipe';
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements OnInit {
-  // A kosár tartalma a router state‑ből jön át
+  // Három input: a checkout oldal címét, a stepper megjelenítését és a pénznem szimbólumát lehet így paraméterezni
+  @Input() checkoutTitle: string = 'Checkout';
+  @Input() showStepper: boolean = true;
+  @Input() currencySymbol: string = '$';
+
+  // Három output: rendelés leadtát, űrlap érvényességének változását és a visszalépést a kosárra jelezhetjük így
+  @Output() orderSubmitted: EventEmitter<any> = new EventEmitter<any>();
+  @Output() formValidityChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() backToCartEvent: EventEmitter<any[]> = new EventEmitter<any[]>();
+
   cartItems: any[] = [];
   checkoutForm!: FormGroup;
   activeStep = 0;
@@ -44,7 +53,6 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     // A router state-ből olvassuk ki a kosár termékeket.
-    // Fontos: ha a felhasználó már refreshed a checkout oldalon, history.state.cartItems undefined lehet.
     this.cartItems = history.state.cartItems || [];
 
     this.checkoutForm = this.fb.group({
@@ -55,11 +63,17 @@ export class CheckoutComponent implements OnInit {
       zip: ['', Validators.required],
       instructions: ['']
     });
+
+    // Az űrlap validitásának változását jelezzük
+    this.checkoutForm.statusChanges.subscribe(status => {
+      this.formValidityChanged.emit(status === 'VALID');
+    });
   }
 
-goBackToCart(): void {
-  this.router.navigate(['/cart'], { state: { cartItems: this.cartItems } });
-}
+  goBackToCart(): void {
+    this.backToCartEvent.emit(this.cartItems);
+    this.router.navigate(['/cart'], { state: { cartItems: this.cartItems } });
+  }
 
   incrementQty(item: any): void {
     item.quantity++;
@@ -82,8 +96,9 @@ goBackToCart(): void {
   onSubmit(): void {
     if (this.checkoutForm.valid) {
       console.log('Form submitted:', this.checkoutForm.value);
+      this.orderSubmitted.emit(this.checkoutForm.value);
       this.activeStep++;
-      // Itt tovább lehet léptetni a fizetési folyamatot, vagy más logikát lehet implementálni.
+      // További fizetési logikát itt lehet megvalósítani.
     }
   }
 
