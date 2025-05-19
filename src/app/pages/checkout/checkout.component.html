@@ -45,10 +45,11 @@
 
     <!-- Checkout űrlap -->
     <form [formGroup]="checkoutForm" class="checkout-form">
-      <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" required>
-      </mat-form-field>
+<mat-form-field appearance="outline">
+  <mat-label>Email</mat-label>
+  <input #emailInput matInput formControlName="email" required>
+</mat-form-field>
+
         
       <mat-form-field appearance="outline">
         <mat-label>Date of Birth</mat-label>
